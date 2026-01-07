@@ -115,7 +115,7 @@ public class VarTypeExam {
 		
 		int num_100 = num / 100;
 		int num_10 = num % 100 / 10;
-		int num_1 = num % 100 % 10 / 1;
+		int num_1 = num % 10;
 		System.out.println("백의 자리: " + num_100 +  "\n십의 자리: " + num_10 + "\n일의 자리: " + num_1);
 		
 		int n100 = num / 100;

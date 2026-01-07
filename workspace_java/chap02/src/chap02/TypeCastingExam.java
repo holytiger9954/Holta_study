@@ -59,6 +59,49 @@ public class TypeCastingExam {
 		System.out.println("d9: " + d9);
 		double d10 = 10.0 / 4;
 		System.out.println("d10: " + d10);
+		
+		
+		// 문자를 숫자로 바꾸기
+		String s1 = "123";
+		int i12 = Integer.parseInt(s1);
+		System.out.println("i12+1: " + (i12 + 1));
+		
+//		String s2 = "123";
+//		int i13 = (int)s2; // 지원하지 않음
+		
+//		String s3 = "123a";
+//		int i14 = Integer.parseInt(s3); // NumberFormatException
+		// 에러나 예외가 발생하면 즉시 java 종료
+//		System.out.println(i14);
+		
+		int i15 = 123;
+		String str = String.valueOf(i15);
+		System.out.println("str+1: " + (str + 1));
+		
+		// 가장 쉽게 숫자를 문자로 바꾸는 방법
+		String str1 = "" + i15;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
