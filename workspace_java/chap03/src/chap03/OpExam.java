@@ -146,6 +146,11 @@ public class OpExam {
 		System.out.println("금액: " + total + "원");
 		System.out.println("5천원권: " + k5 + "장");
 		System.out.println("1천원권: " + k1 + "장");
+		
+		int s = 95;
+		String grade = (s > 90) ? "A" : "B";
+		System.out.println("grade: " + grade);
+		
 	}
 
 	
