@@ -1,6 +1,6 @@
 package chap04;
 
-public class SwitchExam {
+public class SwitchExam_02 {
 
 	public static void main(String[] args) {
 

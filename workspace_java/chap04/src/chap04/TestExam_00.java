@@ -2,7 +2,7 @@ package chap04;
 
 import java.util.Scanner;
 
-public class TestExam {
+public class TestExam_00 {
 
 	public static void main(String[] args) {
 

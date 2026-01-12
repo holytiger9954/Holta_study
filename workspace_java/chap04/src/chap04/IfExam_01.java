@@ -303,7 +303,7 @@ public class IfExam_01 {
 		String rsp_me = scanner5_2.nextLine();
 		double rsp_rand = Math.random();
 		int rsp_data_i = (int)(rsp_rand * (max - min + 1)) + min;
-		if(rsp_data_i == 1) {
+		if(rsp_data_i == 1) { // 가위인 경우
 			String rsp_data_s = "가위";
 			if(rsp_me.equals(rsp_data_s)) {
 				System.out.println("비겼어요...");				
@@ -314,7 +314,7 @@ public class IfExam_01 {
 			} else {
 				System.out.println("뭔가 잘못됨");												
 			}
-		} else if(rsp_data_i == 2) {
+		} else if(rsp_data_i == 2) { // 바위인 경우
 			String rsp_data_s = "바위";	
 			if(rsp_me.equals(rsp_data_s)) {
 				System.out.println("비겼어요...");				
@@ -325,7 +325,7 @@ public class IfExam_01 {
 			} else {
 				System.out.println("뭔가 잘못됨");												
 			}
-		} else if(rsp_data_i == 3) {
+		} else if(rsp_data_i == 3) { // 보인 경우
 			String rsp_data_s = "보";
 			if(rsp_me.equals(rsp_data_s)) {
 				System.out.println("비겼어요...");				
@@ -346,6 +346,7 @@ public class IfExam_01 {
 		// z가 x ~ y 사이에 있는지 판단
 		
 		/*
+		// x >= y 인 경우도 생각해보자
 		Scanner scanner6 = new Scanner(System.in);
 		System.out.print("x: ");
 		int xnum = scanner6.nextInt();
@@ -353,6 +354,7 @@ public class IfExam_01 {
 		int ynum = scanner6.nextInt();
 		System.out.print("z: ");
 		int znum = scanner6.nextInt();
+		
 		if(znum > xnum && znum < ynum) {
 			System.out.println(xnum + "와(과) " + ynum + "사이에 있어요.");
 		} else if(znum == xnum) {
@@ -431,7 +433,7 @@ public class IfExam_01 {
 		Scanner scanner9 = new Scanner(System.in);
 		System.out.print("온도를 입력하세요: ");
 		int degree = scanner9.nextInt();
-		if(degree >= 0) {
+		if(degree > 0) {
 			System.out.println("영상 " + degree + "도 입니다.");
 		} else {
 			System.out.println("영하 " + (degree*(-1)) + "도 입니다.");			
@@ -455,7 +457,7 @@ public class IfExam_01 {
 			if(minute <= 24 && minute >= 0) {
 				System.out.println("35분 뒤의 시간은 "+ hour + "시 " + minuteData + "분 입니다.");
 			} else if(minute > 24) {
-				System.out.println("35분 뒤의 시간은 "+ (hour + 1) + "시 " + (minuteData - 60) + "분 입니다.");			
+				System.out.println("35분 뒤의 시간은 "+ (hour -24 + 1) + "시 " + (minuteData - 60) + "분 입니다.");			
 			} else {
 				System.out.println("정확한 분을 입력해주세요.");				
 			}
@@ -484,9 +486,9 @@ public class IfExam_01 {
 		int inputNum10 = inputNum / 10;
 		int inputNum1 = inputNum % 10;
 		if(inputNum10 == inputNum1) {
-			System.out.println("같음");
+			System.out.println(inputNum10 + "은(는) " + inputNum1 + "와(과) 같음");
 		} else if(inputNum10 != inputNum1) {
-			System.out.println("다름");
+			System.out.println(inputNum10 + "은(는) " + inputNum1 + "와(과) 다름");
 		} else {
 			System.out.println("두 자리 숫자만 입력하세요.");
 		}
@@ -513,7 +515,7 @@ public class IfExam_01 {
 				System.out.println(game369);
 			}	
 		} else {
-			System.out.println("1 ~ 99까지의 숫자만 입력 가능합니다.");
+			System.out.println("1 ~ 99의 숫자만 입력 가능합니다.");
 		}
 		*/
 		
@@ -547,7 +549,13 @@ public class IfExam_01 {
 		}
 		*/
 		
-		
+//		// 모두 && 일 때
+//		// false를 찾으면 뒤의 연산을 하지 않는다
+//		if(false && true) {
+//			
+//		}
+//		// 모두 || 일 때
+//		// true를 찾으면 뒤의 연산을 하지 않는다
 		
 	}
 

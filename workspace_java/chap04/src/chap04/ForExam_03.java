@@ -2,7 +2,7 @@ package chap04;
 
 import java.util.Scanner;
 
-public class ForExam {
+public class ForExam_03 {
 
 	public static void main(String[] args) {
 		
@@ -120,7 +120,7 @@ public class ForExam {
 		for(j = 10; j >= 2; j -= 2) {
 			System.out.println(j);			
 		}
-		System.out.println("----------");
+		System.out.println("$$$$$$$$$$$$");
 		
 		 // --- 꼭 풀 수 있어야 함 ---
         // 문제1
@@ -331,8 +331,8 @@ public class ForExam {
 		sum = 0;
 		i = 0;
 		j = 0;
-		k = 0;
 		for(sum = 2; sum <= 12; sum++) {
+			System.out.print("합 " + sum + ":\t");
 			for(i = 1; i <= 6; i++) {
 				j = sum - i;
 				if(j >= 1 && j <= 6) {
@@ -387,6 +387,84 @@ public class ForExam {
 		
 		// 번외
 		// 피라미드
+		
+		/*
+		int height = 5;
+		i = 0;
+		j = 0;
+		k = 0;
+		for(i = 1; i <= height; i++) {
+			for(j = 1; j <= (height - i); j++) {
+				System.out.print("-");
+			}
+			for(k = 1; k <= (2 * i - 1); k++) {
+				System.out.print("*");
+			}
+			for(j = 1; j <= (height - i); j++) {
+				System.out.print("-");
+			}			
+			System.out.println();
+		}
+		System.out.println("$$$$$$$$$$$$");
+		
+		
+		// 다이아몬드 만들기
+		height = 5;
+		i = 0;
+		j = 0;
+		k = 0;
+		for(i = 1; i <= height; i++) {
+			for(j = 1; j <= (height - i); j++) {
+				System.out.print("-");
+			}
+			for(k = 1; k <= (2 * i - 1); k++) {
+				System.out.print("*");
+			}
+			for(j = 1; j <= (height - i); j++) {
+				System.out.print("-");
+			}			
+			System.out.println();
+		}
+		for(i = (height - 1); i >= 1; i--) {
+			for(j = 1; j <= (height - i); j++) {
+				System.out.print("-");
+			}
+			for(k = 1; k <= (2 * i - 1); k++) {
+				System.out.print("*");
+			}
+			for(j = 1; j <= (height - i); j++) {
+				System.out.print("-");
+			}			
+			System.out.println();
+		}
+		*/
+		
+		// 상자 만들기
+		// 첫번째 줄 마지막 줄은 공백없이 출력
+		// 사이에 있는 줄은 양 끝 제외 공백 출력
+		// 가로 세로 길이는 입력한 수만큼
+		
+		/*
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("상자 사이즈를 입력하세요: ");
+		int size = scanner.nextInt();
+		i = 0;
+		j = 0;
+		for(i = 1; i <= size; i++) {
+			for(j = 1; j <= size; j++) {
+				if(j == 1 || j == size) {
+					System.out.print("*");		
+				} else {
+					if(i == 1 || i == size) {
+						System.out.print("*");								
+					} else {
+						System.out.print(" ");												
+					}
+				}
+			}
+			System.out.println();
+		}
+		*/
 		
 	}
 	
