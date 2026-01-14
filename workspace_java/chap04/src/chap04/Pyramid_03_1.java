@@ -99,10 +99,10 @@ public class Pyramid_03_1 {
 		// 44
 		// 5
 		System.out.println("-----7단계-----");
-		num = 5;
 		height = 5;
+		num = 5;
 		for(height = 1; height <= 5; height++) {
-			for(num = 5; num >= height; num--) {
+			for(num = 1; num <= (5 - height + 1); num++) {
 				System.out.print(height);
 			}
 			System.out.println();
