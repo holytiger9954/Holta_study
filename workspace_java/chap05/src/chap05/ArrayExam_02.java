@@ -387,8 +387,7 @@ public class ArrayExam_02 {
 		int[] pwdNum = new int[8];
 		System.out.print("임시 비밀번호(숫자): [");
 		for(i = 0; i < pwdNum.length; i++) {
-			double rand = Math.random();
-			double temp0 = rand * 10; // 0 ~ 9.999999999
+			double temp0 = Math.random() * 10; // 0 ~ 9.999999999
 			int result = (int)temp0;
 			pwdNum[i] = result;
 		}
@@ -403,8 +402,7 @@ public class ArrayExam_02 {
 		char[] pwdUni = new char[8];
 		System.out.print("임시 비밀번호(알파벳 소문자): [");
 		for(i = 0; i < pwdUni.length; i++) {
-			double rand = Math.random();
-			double temp0 = rand * 26; // 0 ~ 25.999999999
+			double temp0 = Math.random() * 26; // 0 ~ 25.999999999
 			char result = (char)(temp0 + 97); // 97~122
 			pwdUni[i] = result;
 		}
@@ -415,19 +413,18 @@ public class ArrayExam_02 {
 		// 10-3 : 숫자 2개 이상, 대/소문자 각 1개 이상
 		System.out.println("-----문제10-3-----");
 		char[] pwdMix = new char[8];
-		System.out.print("임시 비밀번호(숫자 + 알파벳 대/소문자 조합): [");
 		while(true) {
 			int countA = 0, countB = 0, countC = 0;
 			for(i = 0; i < pwdMix.length; i++) {
 				int type = (int)(Math.random() * 3);
 				if(type == 0) { // 숫자
-					pwdMix[i] = (char)((int)(Math.random() * 10) + 48); // 0~9
+					pwdMix[i] = (char)((int)(Math.random() * 10) + 48); // 48~57
 					countA++;
 				} else if(type == 1) { // 대문자
-					pwdMix[i] = (char)((int)(Math.random() * 25) + 65); // 65~90
+					pwdMix[i] = (char)((int)(Math.random() * 26) + 65); // 65~90
 					countB++;
 				} else { // 소문자
-					pwdMix[i] = (char)((int)(Math.random() * 25) + 97); // 97~122
+					pwdMix[i] = (char)((int)(Math.random() * 26) + 97); // 97~122
 					countC++;
 				}
 			}
@@ -436,6 +433,7 @@ public class ArrayExam_02 {
 			}
 		}
 		// 출력
+		System.out.print("임시 비밀번호(숫자 + 알파벳 대/소문자 조합): [");
 		for(j = 0; j <= 7; j++) {
 			System.out.print(pwdMix[j]);			
 		}
@@ -505,15 +503,15 @@ public class ArrayExam_02 {
 		// 로또 번호 6개 배열에 저장
 		// 단, 중복 없이!
 		System.out.println("-----문제12-----");
-		int[] rotto = new int[6];
+		int[] lotto = new int[6];
 		
-		for(i = 0; i < rotto.length; i++) { //rotto[0]~[5] 까지
+		for(i = 0; i < lotto.length; i++) { //lotto[0]~[5] 까지
 			// 1~45 중에서 랜덤 넣기
-			rotto[i] = (int)(Math.random()*45) + 1; 
+			lotto[i] = (int)((Math.random()*45) + 1); 
 			
 			// 중복 없애기
 			for(j = 0; j < i; j++) { // 0~(i-1)
-				if(rotto[i] == rotto[j]) { // rotto[i] 일때 rotto[0]~ 비교
+				if(lotto[i] == lotto[j]) { // lotto[i] 일때 lotto[0]~ 비교
 					i--; // 다시 뽑기
 					break; // i로 돌아가기
 				}
@@ -521,14 +519,14 @@ public class ArrayExam_02 {
 		}
 		// 정렬해보기
 		temp = 0;
-		for(i = 0; i < rotto.length - 1; i++) { // i + 1 < rotto.length
+		for(i = 0; i < lotto.length - 1; i++) { // i + 1 < lotto.length
 			// 가장 작은 수부터 for문 사이클마다 점점 앞쪽으로 정렬됨
 			// 버블정렬이었나?
-			for(j = 0; j < rotto.length - 1 - i; j++) { 
-				if(rotto[j] > rotto[j + 1]) { // 
-					temp = rotto[j];	  	  // 앞의 수가
-					rotto[j] = rotto[j + 1];  // 바로 뒤의 수보다 크면
-					rotto[j + 1] = temp;	  // 서로 위치 바꾸기
+			for(j = 0; j < lotto.length - 1 - i; j++) { 
+				if(lotto[j] > lotto[j + 1]) {  
+					temp = lotto[j];	  	  // 앞의 수가
+					lotto[j] = lotto[j + 1];  // 바로 뒤의 수보다 크면
+					lotto[j + 1] = temp;	  // 서로 위치 바꾸기
 				}
 			}
 			
@@ -536,11 +534,11 @@ public class ArrayExam_02 {
 		// 출력
 		int k = 0;
 		System.out.print("로또 번호: [");
-		for(k = 0; k < rotto.length; k++) {
-			if(k < rotto.length - 1) {
-				System.out.print(rotto[k] + ", ");				
+		for(k = 0; k < lotto.length; k++) {
+			if(k < lotto.length - 1) {
+				System.out.print(lotto[k] + ", ");				
 			} else {
-				System.out.print(rotto[k]);								
+				System.out.print(lotto[k]);								
 			}
 		}
 		System.out.println("]");

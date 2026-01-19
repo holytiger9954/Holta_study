@@ -1,5 +1,6 @@
-package sec04;
+package sec04.method02;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Calc {
@@ -95,12 +96,16 @@ public class Calc {
 		
 		return x + y;
 	}
-	int clacM(int x, int y) {
+	int calcM(int x, int y) {
 		
 		return x - y;
 	}
 	int calcD(int x, int y) {
-		
+		if(y == 0) {
+			System.out.println("0으로 나눌 수 없습니다");
+			
+			return 0;
+		}
 		return x / y;
 	}
 	int calcS(int x, int y) {
@@ -108,11 +113,21 @@ public class Calc {
 		return x * y;
 	}
 	
-	void scanner() {
+	ArrayList<String> input = new ArrayList();
+	String numX;
+	String operator;
+	String numY;
+	
+	ArrayList<String> scanner() {
 		Scanner scan = new Scanner(System.in);
-		int numX = scan.nextInt();
-		String operater = scan.nextLine();
-		int numY = scan.nextInt();	
+		numX = scan.nextLine();
+		input.add(numX);
+		operator = scan.nextLine();
+		input.add(operator);
+		numY = scan.nextLine();
+		input.add(numY);
+		
+		return input;
 	}
 	
 }
