@@ -629,6 +629,237 @@ SELECT empno, ename, mgr,
 		END AS chg_mgr
 FROM emp;
 
+SELECT sum(comm) FROM emp;
+
+SELECT sum(sal) FROM emp;
+--SELECT sum(sal), sal FROM emp;
+
+SELECT count(sal) FROM emp;
+SELECT count(comm) FROM emp;
+SELECT count(*) FROM emp;
+
+SELECT count(*) FROM emp
+WHERE deptno = 30;
+
+SELECT max(sal) FROM emp;
+SELECT min(sal) FROM emp;
+
+SELECT 
+	max(sal), min(sal), min(hiredate), min(comm), 
+	count(*), sum(sal)
+FROM emp;
+
+SELECT avg(sal) FROM emp;
+
+-- 이름에 a가 들어가는 사람은 몇명?
+-- 'a'
+SELECT count(*) FROM emp
+WHERE lower(ename) LIKE lower('%a%');
+
+SELECT DISTINCT deptno FROM emp;
+
+-----------------------
+-- group by
+/*
+ *  제약 1. select에는 group by에 적은 컬럼 명만 가능하다
+ *  제약 2. select에 집계함수는 가능하다
+ */
+SELECT deptno 
+FROM emp
+GROUP BY deptno;
+
+SELECT deptno, count(*), sum(sal), avg(sal) 
+FROM emp
+GROUP BY deptno;
+
+SELECT deptno, job
+FROM emp
+GROUP BY deptno, job;
+
+SELECT deptno, job, count(*)
+FROM emp
+GROUP BY deptno, job;
+
+/*
+SELECT * FROM emp
+WHERE avg(sal) < sal;
+*/
+
+SELECT deptno, job 
+FROM emp
+WHERE deptno = 10
+GROUP BY deptno, job;
+
+SELECT deptno, job 
+FROM emp
+--WHERE deptno = 10
+GROUP BY deptno, job
+HAVING deptno = 10;
+
+SELECT deptno, job , avg(sal)
+FROM emp
+GROUP BY deptno, job
+HAVING avg(sal) > 2000;
+
+-- job 별로 3명 이상인 job과 count(*)를 출력
+SELECT job, count(*)
+FROM emp
+GROUP BY job 
+HAVING count(*) >= 3;
+
+SELECT * FROM dept;
+
+SELECT * FROM emp;
+
+-- 모든 조합이 나온다 14 * 4 = 56가지
+SELECT *
+FROM emp, dept;
+
+SELECT *
+FROM emp, dept
+ORDER BY empno;
+
+SELECT deptno FROM emp 
+WHERE ename = 'SMITH';
+
+SELECT * FROM dept
+WHERE deptno = 20;
+
+SELECT *
+FROM emp, dept
+WHERE emp.deptno = dept.deptno;
+
+-- 별칭을 주는 순간 별칭으로만 칭할 수 있다
+SELECT *
+FROM EMP e, DEPT d 
+WHERE e.deptno = d.deptno;
+
+SELECT emp.ename
+FROM emp;
+
+--SELECT ename, * FROM emp;
+SELECT ename, emp.* FROM emp;
+-- scheme
+
+-- ambiguously 모호하다
+SELECT ename, e.deptno, e.*
+FROM EMP e, DEPT d 
+--WHERE emp.deptno = deptno.deptno
+WHERE e.deptno = d.deptno;
+
+SELECT * FROM salgrade;
+
+-- 800
+SELECT sal FROM emp WHERE ename = 'SMITH';
+
+SELECT ename, sal, grade, losal, hisal
+FROM EMP e, SALGRADE s
+WHERE e.sal >= s.losal AND e.sal <= s.hisal;
+
+SELECT mgr FROM emp WHERE ename = 'SMITH';
+SELECT * FROM emp WHERE empno = 7902;
+
+-- KING은 mgr이 null이어서 결과에서 빠졌다
+SELECT e1.empno, e1.ename, e1.mgr,
+		e2.empno, e2.ename, e2.mgr
+FROM emp e1, emp e2
+WHERE e1.mgr = e2.empno;
+
+SELECT *
+FROM EMP e NATURAL JOIN DEPT d;
+
+SELECT deptno
+FROM EMP e NATURAL JOIN DEPT d;
+
+SELECT deptno, e.empno, dname
+FROM EMP e JOIN DEPT d USING(deptno);
+
+SELECT d.deptno, d.*
+FROM EMP e JOIN DEPT d on(e.deptno = d.deptno) -- table 간의 관계 조건
+WHERE sal <= 2000;
+
+SELECT *
+FROM EMP e1 LEFT OUTER JOIN EMP e2 ON(e1.mgr = e2.empno);
+
+SELECT *
+FROM EMP e1 RIGHT OUTER JOIN EMP e2 ON(e1.mgr = e2.empno);
+
+SELECT *
+FROM EMP e1 FULL OUTER JOIN EMP e2 ON(e1.mgr = e2.empno);
+
+-- 퀴즈
+-- 각 부서별로
+-- 가장 높은 급여, 
+-- 가장 낮은 급여,
+-- 급여 차액,
+-- 부서번호
+-- HINT: 결과는 총 3줄
+
+SELECT max(sal), min(sal), max(sal) - min(sal), deptno
+FROM emp
+GROUP BY deptno;
+
+-- 226p. 1~4번 문제 풀기
+
+-- Q1
+SELECT d.deptno, d.dname, e.empno, e.ename, e.sal
+FROM EMP e LEFT OUTER JOIN DEPT d on(e.deptno = d.deptno)
+WHERE e.sal > 2000;
+
+-- Q2
+SELECT d.deptno, d.dname, trunc(avg(e.sal), 0) avg_sal, 
+	max(e.sal) max_sal, min(e.sal) min_sal, count(*) cnt
+FROM EMP e LEFT OUTER JOIN DEPT d on(e.deptno = d.deptno)
+GROUP BY d.deptno, d.dname;
+
+-- Q3
+SELECT d.deptno, d.dname, e.empno, e.ename, e.job, e.sal
+FROM EMP e RIGHT OUTER JOIN DEPT d on(e.deptno = d.deptno)
+ORDER BY d.deptno, e.ename;
+
+-- Q4
+SELECT 
+    d.deptno, d.dname, 
+    e1.empno, e1.ename, e1.mgr, e1.sal,
+    s.losal, s.hisal, s.grade,
+    e2.empno AS mgr_empno, e2.ename AS mgr_ename
+FROM DEPT d
+LEFT OUTER JOIN EMP e1 ON (d.deptno = e1.deptno)
+LEFT OUTER JOIN SALGRADE s ON (e1.sal BETWEEN s.losal AND s.hisal)
+LEFT OUTER JOIN EMP e2 ON (e1.mgr = e2.empno)
+ORDER BY d.deptno, e1.empno;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
