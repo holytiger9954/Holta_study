@@ -1391,6 +1391,29 @@ WHERE deptno = 10;
 
 
 
+// test
+SELECT 
+    RPAD(SUBSTR(empno, 1, 2), 4, '*') AS empno, 
+    ename
+FROM emp
+ORDER BY empno DESC;
+
+SELECT e.empno, e.ename, d.dname, d.loc
+FROM emp e
+	LEFT OUTER JOIN dept d USING(deptno)
+ORDER BY dname DESC; 
+	
+
+
+
+
+
+
+
+
+
+
+
 
 
 
