@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +12,7 @@
 
         console.log(b); // b is not defined
 
-        function test(){
+        function test() {
             // var a; // 호이스팅 발생!
             // var는 함수 최상단으로 호이스팅
 
@@ -19,12 +20,12 @@
             // var a = 1;
 
             console.log(a);
-            
-            if(true) {
+
+            if (true) {
                 // 위로 올라가서 주석처리
                 var a = 10; // 호이스팅 발생!
                 // var는 함수 최상단으로 호이스팅
-                
+
                 b = 20;     // 호이스팅 발생@ (엄밀히 말하면 호이스팅은 아님 / "암묵적 전역"이라 함)
                 // 파일의 최상단으로 호이스팅 (엄밀히 말하면 호이스팅은 아님 / "암묵적 전역"이라 함)
                 let c = 30;
@@ -37,7 +38,7 @@
             // console.log('let c: ', c);
             // console.log('const d: ', d);
         }
-        
+
         test();
 
         // console.log("var a:" + a);
@@ -45,7 +46,9 @@
 
     </script>
 </head>
+
 <body>
-    
+
 </body>
+
 </html>

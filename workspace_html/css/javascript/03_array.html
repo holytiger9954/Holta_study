@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,16 +20,16 @@
         // arr3 = [11, 22];
         arr3[0] = 10;
         console.log("arr3[0]: ", arr3[0]);
-        
+
         console.log(arr3);
         console.log("arr3: , ", arr3);
         console.log("arr3: + " + arr3);
-        
+
         arr3[10] = 100;
         console.log("arr3[10]: ", arr3[10]);
         console.log("arr3: , ", arr3);
         console.log("arr3: + " + arr3);
-        
+
         console.log("---------------------------")
         // 문자, 실수인 key: 추가는 되지만 length에 안잡힘
         arr3["age"] = 20;
@@ -38,27 +39,27 @@
         console.log(arr3);
         console.log("arr3[age]: , ", arr3["age"]); // 사용 주의 (개발자 도구는 가장 마지막 기준으로 읽음)
         console.log("arr3[age]: + " + arr3["age"]);// 사용 권장
-        
+
         console.log("arr4.length: ", arr4.length);
 
         console.log("arr3[200]: ", arr3[200]); // undefined
-        
-        for(let i = 0; i < arr4.length; i++){
+
+        for (let i = 0; i < arr4.length; i++) {
             console.log(arr4[i]);
         }
-        
+
         console.log("---------------------------")
         const 중식 = ["탕수육", "짬뽕", "깐쇼새우", "볶음밥"];
         const 양식 = ["파스타", "돈까스", "스테이크"];
         const 일식 = ["초밥", "카라아게", "오꼬노미야끼", "라멘", "타코야끼"];
         const 음식 = [중식, 양식, 일식];
-        
-        for(let i = 0; i < 음식.length; i++){
-            for(let j = 0; j < 음식[i].length; j++){
+
+        for (let i = 0; i < 음식.length; i++) {
+            for (let j = 0; j < 음식[i].length; j++) {
                 console.log(음식[i][j]);
             }
         }
-        
+
         console.log("---------------------------")
         // 배열의 메소드 사용하기
         let arr = [1, 2, 3, 4];
@@ -67,7 +68,7 @@
         // 맨 마지막에 하나 추가
         arr.push(5);
         console.log(arr);
-        
+
         // 맨 처음에 추가
         arr.unshift(0);
         console.log(arr);
@@ -77,23 +78,23 @@
         let shift = arr.shift();
         console.log("shift: ", shift);
         console.log(arr);
-        
+
         // 맨 마지막 것 하나 빼서 돌려주기
         // 원본이 바뀜 (파괴함수)
         let pop = arr.pop();
         console.log("pop", pop);
         console.log(arr);
-        
+
         // stack과 queue
-        
+
         // stack
         //  나중에 들어간 것을 처음에 사용하는 것
         //  후입선출 Last In First Out (LIFO)
-        
+
         // queue
         //  처음에 들어간 것을 처음에 사용하는 것
         //  선입선출 First In First Out (FIFO)
-        
+
         // 배열 뒤집기
         const reverse = arr.reverse();
         console.log("reverse: ", arr);
@@ -145,21 +146,21 @@
         sp = arr.splice(3, 100);
         console.log(arr);
         console.log("sp", sp);
-        
+
         arr = [0, 1, 2, 3, 4, 5, 6];
         // 자를 것 자르고 그 자리에 새 값을 추가
-        arr.splice(1, 2, 10,20,30,40);
+        arr.splice(1, 2, 10, 20, 30, 40);
         console.log(arr);
-        
+
         arr = [0, 1, 2, 3, 4, 5, 6];
         const arr5 = [10, 20, 30];
         console.log(arr5);
         console.log(...arr5); // spread 연산자
-                              // 배열을 펼쳐준다
+        // 배열을 펼쳐준다
         console.log(10, 20, 30);
-        arr.splice(1, 0, ... arr5);
+        arr.splice(1, 0, ...arr5);
         console.log(arr);
-        
+
         arr = [0, 1, 2, 3, 4, 5, 6];
         // 중간에 삽입
         arr.splice(1, 0, 100);
@@ -216,14 +217,29 @@
         let arr7 = [1, 2, 3, 4];
         let arr8 = arr6.concat(arr7);
         console.log(arr8);
-        
+
         // 문자열로 바꾸기 toString
         console.log(arr8.toString());
         console.log("" + arr8);
-        
+
+        // 함수 배우고 와서 하는 거
+        let arr9 = [2, 65, 34, 3, 7, 67];
+        // arr6.sort() // 오름차순
+        // arr9.sort(function(x, y, a, b, c){
+        //     console.log(x, y, a, b, c);
+        // });
+
+        // 내림차순
+        arr9.sort(function(x, y){
+            return y - x;
+        });
+        console.log(arr9);
+
     </script>
 </head>
+
 <body>
-    
+
 </body>
+
 </html>

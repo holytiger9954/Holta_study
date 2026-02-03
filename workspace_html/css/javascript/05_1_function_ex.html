@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        //2) 함수 표현식(Function Expression)
+        var add = function (a, b) {
+            return a + b;
+        };
+
+        add(2, 3); // 5
+
+        //3) 화살표 함수(Arrow Function)
+        var add = (a, b) => {
+            return a + b;
+        };
+
+        //한 줄이면 return 생략 가능
+        var add = (a, b) => a + b;
+
+        add(2, 3); // 5
+
+        //4) 즉시 실행 함수(IIFE: Immediately Invoked Function Expression)
+        (function () {
+            console.log("바로 실행!");
+        })();
+
+
+        //또는 화살표로
+
+        (() => {
+            console.log("바로 실행!");
+        })();
+
+        //5) 메서드(Method) 형태 (객체 안의 함수)
+        var user = {
+            name: "Han",
+            sayHi: function () {
+                console.log("Hi!");
+            }
+        };
+        user.sayHi();
+
+        var user = {
+            sayHi() {
+                console.log("hiihihi");
+            }
+        };
+
+        user.sayHi();
+
+        //6) 콜백 함수(Callback Function)
+
+        //“함수를 값처럼 전달해서 나중에 실행하는 방식”
+
+        function run(callback) {
+            callback();
+        }
+
+        run(() => console.log("콜백 실행!"));
+
+        //사용되는 대표 예
+
+        //이벤트 처리
+
+        //비동기(Promise, setTimeout)
+
+        //배열 함수(map/filter)
+
+        //7) 생성자 함수(Constructor Function) + new 실행
+        function Person(name) {
+            this.name = name;
+        }
+
+        const p1 = new Person("Han");
+        console.log(p1.name); // Han
+
+        //new 붙이면 객체 생성용으로 실행됨
+
+        //8) 기본값 파라미터(Default Parameter)
+        function greet(name = "Guest") {
+            console.log("Hello " + name);
+        }
+
+        greet();       // Hello Guest
+        greet("Han");  // Hello Han
+
+        //9) 나머지 파라미터(Rest Parameter)
+        function sum(...nums) {
+            return nums.reduce((acc, n) => acc + n, 0);
+        }
+
+        sum(1, 2, 3, 4); // 10
+
+        console.log("-------------실습------------")
+        const users = [
+            { name: "김철수", age: 15 },
+            { name: "이영희", age: 25 },
+            { name: "김민재", age: 30 },
+            { name: "박지성", age: 10 }
+        ];
+        // const adultNames = users.filter(u => (u.age >= 20)).map(u => (u.name));
+        const adultNames = users
+            .filter(u => (u.age >= 20))
+            .map(u => (u.name));
+        console.log(adultNames); // ['이영희', '김민재']
+
+        console.log("-------------------------------")
+        const googoo = [1, 2, 3, 4, 5, 6, 7, 8, 9]; // 1~9 배열
+        const googoodan = googoo // googoo를 만진 결과물을 googoodan에 넣는다
+            .filter(dan => (dan >= 2)) // 1~9 중에서 2 이상인 숫자
+            .map(dan => { // googoo를 만진 결과물
+                return googoo // 을 반환 받기
+                    .map(g => `${dan} x ${g} = ${dan * g}`); // 2~9 인 dan과 1~9인 g
+            });
+        console.log(googoodan);
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
