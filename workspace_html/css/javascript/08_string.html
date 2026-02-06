@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,26 +25,26 @@
         let str2 = str.replace("나", "너");
         console.log("str: ", str);
         console.log("str2: ", str2);
-        
+
         // 정규 표현식을 이용해서 전체 바꾸는 방법
         str2 = str.replace(/나/g, "너"); // 정규표현식
         console.log("str2: ", str2);
-        
+
         // slice(시작 index, 끝 index)
         // 시작 index부터 끝 index 바로 앞까지 복사
         str2 = str.slice(4, 6);
         console.log("str: ", str);
         console.log("str2: ", str2);
-        
+
         // split
         str2 = str.split(" ");
         console.log("str2: ", str2);
-        
+
         // substr
         // 시작 index, count
         str2 = str.substr(4, 2);
         console.log("str2: ", str2);
-        
+
         // substring
         // 시작 index, 끝 index 바로 앞
         str2 = str.substring(4, 6);
@@ -54,9 +55,98 @@
         str2 = str3.trim();
         console.log(`[${str2}]`);
 
+        // ---------------------------------------------
+        // 문제1
+        // 어떤 이메일이라도 id를 출력해보자
+        // study.todair@gmail.com -> study.todair 이부분
+        let email = "study.todair@gmail.com";
+        const id = email.slice(0, email.indexOf("@"))
+        console.log("id: ", id);
+
+        console.log("---------------------");
+        // 문제2
+        // 보안상 이메일의 앞 두자리를 제외하고 *처리
+        // study.todair@gmail.com -> st**********@gmail.com
+        const [idP, domainP] = email.split("@");
+        const preidP = idP.substr(0, 2);
+        const idCount = idP.length - preidP.length;
+        let idid = "";
+        for (let i = 1; i <= idCount; i++) {
+            idid += "*";
+        }
+        let idResult = preidP + idid;
+        let emailP = idResult + "@" + domainP;
+        console.log("emailP: ", emailP);
+        
+        console.log("---------------------");
+        // 문제3
+        // 인터넷 주소 중에서 2차 도메인 출력
+        // comic.naver.com -> naver
+        // human.or.kr -> or
+        let addr = "comic.naver.com";
+        const domain2 = addr.split(".");
+        const domainTh = 2;
+        console.log("domain2: ", domain2[domain2.length - domainTh]);
+        
+        console.log("---------------------");
+        // 문제4
+        // 네이버 검색 url의 query string에서 검색어를 출력한다
+        // HINT : query=옆에있는 단어 
+        // https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=1234&ackey=po4zpvmy
+        // >> 1234
+        let url = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=1234&ackey=po4zpvmy";
+        let query = "query=";
+
+        let idx1 = url.indexOf(query) + query.length;
+        console.log("idx1: ", idx1);
+
+        let sub = url.substr(idx1);
+        console.log("sub: ", sub);
+
+        let andIndex = sub.indexOf("&");
+        let idx2 = idx1 + andIndex;
+        console.log("idx2: ", idx2);
+
+        let search = "";
+
+        if (andIndex == -1) {
+            search = url.substring(idx1);
+        } else {
+            search = url.substring(idx1, idx2);
+        }
+        console.log("search: ", search);
+        
+        console.log("---------------------");
+        // 문제5
+        // "2026-02-05 09:14:38"
+        // 월, 분을 출력하시오
+        const date = "2026-02-05 09:14:38";
+        let date1 = date.split(" ");
+        console.log(date1);
+        const date2_1 = date1[0].split("-");
+        console.log(date2_1);
+        const date2_2 = date1[1].split(":");
+        console.log(date2_2);
+        const result = [date2_1[1], date2_2[1]];
+        console.log("월, 분: ", result);
+        
+        console.log("---------------------");
+        // 문제6
+        // "   abc   "
+        // 공백의 개수는?
+        const strABC = "   abc  ";
+        let allLength = strABC.length;
+        console.log("전체 길이: ", length);
+        let nonSpace = strABC.replace(/ /g, "").length;
+        console.log("공백 제거: ", nonSpace);
+        let resultABC = allLength - nonSpace;
+        console.log("공백 개수: ", resultABC);
+        
     </script>
 </head>
+
 <body>
-    
+
 </body>
+
 </html>

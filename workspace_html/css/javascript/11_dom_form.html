@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="id" value="abcd"><br>
+    <input type="password" id="pw"><br>
+    <input type="date" id="date"><br>
+
+    <input type="radio" name="ai" value="1" checked>chatGPT
+    <input type="radio" name="ai" value="2">Gemini
+    <input type="radio" name="ai" value="3">perplexity
+    <input type="radio" name="ai" value="4">claude
+    <br>
+
+    <input type="checkbox" class="res" value="a" checked>한식
+    <input type="checkbox" class="res" value="b">중식
+    <input type="checkbox" class="res" value="c">일식
+    <br>
+
+    <!-- ctrl + alt + 아래 방향키: 커서 복제 -->
+    <select id="select">
+        <option value="1">html</option>
+        <option value="2">css</option>
+        <option value="3" selected>java</option>
+        <option value="4">db</option>
+        <option value="5">javascript</option>
+    </select>
+    <br>
+    <select id="select2">
+        <option value="h">html</option>
+        <option value="c">css</option>
+        <option value="s">java</option>
+        <option value="d">db</option>
+        <option value="j">javascript</option>
+    </select>
+    <br>
+
+    <textarea id="textarea">초기값</textarea>
+
+    <div id="view"></div>
+
+    <script>
+
+        const text = document.querySelector("#id");
+        console.log("text.value: ", text.value);
+
+        setTimeout(() => {
+
+            console.log("text.value: ", text.value);
+            text.value = 12345;
+
+            const pw = document.querySelector("#pw");
+            console.log("pw.value: ", pw.value);
+            pw.value = 12345;
+
+            const date = document.querySelector("#date");
+            console.log("date.value: ", date.value);
+            // console.log("date.value typeof: ", typeof date.value);
+            // date.value = "1999-05-04";
+
+            const today = new Date();
+
+            const y = today.getFullYear();
+
+            let m = today.getMonth() + 1;
+            if (m < 10) {
+                m = "0" + m;
+            };
+
+            let d = today.getDate();
+            d = ("0" + d).slice(-2);
+
+            date.value = y + "-" + m + "-" + d;
+            console.log("date.value: ", date.value);
+
+            date.value = today.toISOString().split("T")[0];
+            console.log("date.value: ", date.value);
+
+            const radio = document.querySelector("[name=ai]:checked");
+            console.log("radio.value: ", radio.value);
+
+            const radios = document.querySelectorAll("[name=ai]");
+            radios[1].checked = true;
+            console.log("radios[1].value: ", radios[1].value);
+
+            let checks = document.querySelectorAll(".res:checked");
+            // let not_checks = document.querySelectorAll(".res:not(:checked)");
+            for (let i = 0; i < checks.length; i++) {
+                console.log(checks[i].value);
+                checks[i].checked = false;
+            }
+
+            let checks2 = document.querySelectorAll(".res");
+            checks2[0].checked = true;
+
+            for(let i = 0; i < checks2.length; i++){
+                console.log(checks2[i].checked)
+            }
+
+            const select = document.querySelector("#select");
+            console.log(select.value);
+            
+            const option = document.querySelector("#select option:checked");
+            console.log(option.innerText);
+            
+            // select.value = "4";
+            select.value = 4;
+            
+            const select2 = document.querySelector("#select2");
+            select2.value = "c";
+
+            const textarea = document.getElementById("textarea");
+            console.log(textarea.value);
+
+            // textarea.value = "바뀐값<br>다음줄\n진짜 다음줄";
+
+            // innerText: 태그는 안되지만  \n은 적용된다
+            const view = document.querySelector("#view");
+            view.innerText = textarea.value;
+            
+            // innerHTML: 태그가 적용되고 \n은 적용 안됨
+            let html = textarea.value.replace(/\n/g, "<br>");
+            view.innerHTML = html;
+            
+        }, 1000 * 3);
+
+    </script>
+</body>
+
+</html>

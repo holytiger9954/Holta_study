@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .blue {
+            color: blue;
+        }
+
+        .red {
+            color: red;
+        }
+
+        .big {
+            font-size: 2em;
+        }
+
+        [data-human="노른자"] {
+            font-size: 2em;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="title">DOM 연습</h1>
+
+    <div id="view">첫번째 #view</div>
+    <div id="view">두번째 #view</div>
+
+    <div class="red div2">첫번째 .div2</div>
+    <div class="div2 blue">두번째 .div2</div>
+    <div class="div22 green">세번째 .div2</div>
+
+    <div id="menu">
+        <div class="div2">닭 내장탕</div>
+        <div class="div3 abc">피자</div>
+        <div class="div4" data-human="노른자">육회</div>
+    </div>
+
+    <img alt="뻥튀기" style="width:300px"
+        src="http://116.36.205.25:5173/uploads/1770182725850_b1c5c594-c523-4967-a8b5-574e1e93c5cd.jpg">
+
+    <script>
+        console.log("------------------------");
+        // document: html 문서 전체를 뜻한다
+        console.log(document);
+
+        console.log("------------------------");
+        // getElementById
+        // id 속성의 값을 이용해서 DOM을 가져온다
+        const title = document.getElementById("title");
+        console.log(title);
+        console.log("" + title);
+
+        console.log("------------------------");
+        // 요소가 없는 경우 null
+        const test = document.getElementById("test");
+        console.log(test);
+        console.log("" + test);
+
+        // 동일한 id 가 여러개 있어도 
+        // 첫번째 DOM만 가지고 온다
+        console.log("------------------------");
+        let view = document.getElementById("view");
+        console.log(view);
+        console.log("" + view);
+
+        // 태그 명으로 DOM 찾기
+        // 일치하는 모든 DOM을 (유사)배열로 돌려준다
+        console.log("------------------------");
+        let divs = document.getElementsByTagName("div");
+        console.log(divs);
+        console.log("" + divs);
+
+        // 하나만 있어도 한 개짜리 배열이 생성됨
+        console.log("------------------------");
+        let h1s = document.getElementsByTagName("h1");
+        console.log(h1s);
+        console.log("" + h1s);
+
+        // 없을 때 length가 0인 배열 (null이 아님)
+        let human = document.getElementsByTagName("human");
+        console.log(human);
+        console.log("" + human);
+
+        // length가 0인 배열도 자체로는 참
+        if (human) {
+            console.log("참");
+        } else {
+            console.log("거짓");
+        }
+
+        // class가 포함된 DOM 배열을 돌려준다
+        console.log("------------------------");
+        const div2s = document.getElementsByClassName("div2");
+        console.log(div2s);
+        console.log("" + div2s);
+
+        console.log("------------------------");
+        // document: 문서 전체에서
+        const menu = document.getElementById("menu");
+        console.log(menu);
+        console.log("" + menu);
+        // 특정 DOM 안에서도 찾을 수 있다
+        let div2 = menu.getElementsByClassName("div2");
+        console.log(div2);
+        console.log("" + div2);
+
+        // querySelector
+        // CSS 선택자를 사용할 수 있다
+        // 하나의 DOM만 돌려준다
+        // 여러개인 경우 처음 나온 DOM 하나만
+        // 없는 경우 null
+        console.log("------------------------");
+        let 닭내장탕 = document.querySelector("#menu .div2");
+        console.log(닭내장탕);
+        console.log("" + 닭내장탕);
+
+        let 노른자 = document.querySelector("[data-human='노른자']");
+
+        // querySelectorAll
+        console.log("------------------------");
+        let qs = document.querySelector(" .div2");
+        console.log(qs);
+        console.log("" + qs);
+
+        let qsa = document.querySelectorAll(" .div2");
+        console.log(qsa);
+        console.log("" + qsa);
+
+        // class 값을 조작
+        console.log("------------------------");
+        let child = document.querySelector(" .div3");
+        
+        // classList: class를 배열로 돌려줌
+        console.log(child.classList);
+        
+        // add: class 값 추가
+        child.classList.add("red");
+        // 중복해서 추가하지 않는다
+        child.classList.add("red");
+        
+        child.classList.add("big");
+        
+        // remove: class 값 삭제
+        child.classList.remove("red");
+        // 없으면 딱히 하는거 없음
+        child.classList.remove("red");
+        
+        // toggle: 값이 없으면 add, 있으면 remove
+        // Ctrl + / 주석 켜고 끄고 하는 것처럼
+        child.classList.toggle("blue");
+        child.classList.toggle("div3");
+
+        // div3가 지워졌어도 child는 여전히 작동함 (선택자를 처음 찾을때만 쓰는듯?)
+        // child.classList.add("red");
+        
+        // contains
+        // class의 값이 있는가?
+        let isBlue = child.classList.contains("blue");
+        console.log("isBlue: ", isBlue);
+        
+        // toggle 구현
+        if (isBlue) {
+            child.classList.remove("blue");
+        } else {
+            child.classList.add("blue");
+        }
+        
+        // 속성
+        console.log("------------------------");
+        const img = document.querySelector("img");
+        
+        // hasAttribute
+        // 속성 명이 있는지 검사
+        // readonly, disabled, required 등 검사할 때 좋다
+        const isSrc = img.hasAttribute("src");
+        console.log("isSrc: ", isSrc);
+        
+        // getAttribute
+        // 속성 값을 가져온다
+        let src = img.getAttribute("src");
+        console.log(src);
+
+        src = img.getAttribute("src2");
+        console.log(src);
+
+        // setAttribute(속성 명, 속성 값)
+        //      속성이 있으면 값 덮어쓰기
+        //      속성이 없으면 만들어주기
+        let url = "http://116.36.205.25:5173/uploads/1769759829661_0c9f9705-756e-4724-b4f6-1cc4a26dcec3.jfif";
+        setTimeout(function () {
+            img.setAttribute("src", url);
+        }, 1000 * 2);
+        
+        img.setAttribute("src3", "없는거");
+
+        // 육회의 data-human의 값을 "1강의실"로 바꾸기
+        let 육회 = document.querySelector("#menu [data-human='노른자']");
+        육회.setAttribute("data-human", "1강의실");
+        console.log("육회: ", 육회);
+
+        // removeAttibute
+        // 속성 지우기
+        img.removeAttribute("src3");
+        // 없으면 따로 하는거 없음
+        img.removeAttribute("src3");
+
+        // DOM 지우기 (html에서 사라짐)
+        img.remove();
+
+        // 여기까지 해야 메모리에서도 사라짐
+        // img = null;
+
+    </script>
+</body>
+
+</html>

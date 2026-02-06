@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="msg">
+        <span>원래 </span> 있던 글씨
+    </div>
+
+    <div id="count">0</div>
+
+    <div id="clock">시계 로딩중...</div>
+
+    <div id="log">일단 글씨 넣어보기</div>
+
+    <table border="1">
+        <tbody id="tbody">
+            <!-- js로 구현(동적 추가)
+            <tr>
+                <td>첫째칸</td>
+            </tr>
+            -->
+        </tbody>
+    </table>
+
+    <table border="1">
+        <tbody id="tbody2">
+            <!-- js로 구현(동적 추가)
+            <tr>
+                <td>1-1</td>
+                <td>1-2</td>
+            </tr>
+            <tr>
+                <td>2-1</td>
+                <td>2-2</td>
+            </tr>
+            -->
+        </tbody>
+    </table>
+
+    <div class="quiz q1">미래님 최고다</div>
+
+    <div class="quiz q2">퀴즈21</div>
+    <div class="quiz q2-1">퀴즈2-1</div>
+    <div class="quiz q2-2">퀴즈2-2</div>
+    <div class="quiz q2">퀴즈22</div>
+    <div class="quiz q2-1">퀴즈2-1</div>
+    <div class="quiz q2"></div>
+
+    <script>
+        let msg = document.getElementById("msg");
+        console.log("msg: ", msg)
+
+        // textContent
+        // 컨텐츠 영역의 소스 중에 text만 그대로 가져온다
+        console.log("msg.textContent: ", msg.textContent);
+
+        // innerText
+        // 브라우저에 보이는 그대로 text만 가져온다
+        // 브라우저가 보여줄 내용에 대한 계산이 끝나고
+        //  실제 표시하는 text를 가져온다
+        console.log("msg.innerText: ", msg.innerText);
+
+        // innerHTML
+        // 컨텐츠 영역의 소스를 그대로 가져온다
+        console.log("msg.innerHTML: ", msg.innerHTML);
+
+        // 변수에 넣으면
+        // 컨텐츠 내용을 변경해준다
+
+        // textContent, innerText: tag도 글씨로 인식한다
+        msg.textContent = "<h1>h1제목</h1> &nbsp; &lt; &gt;   a  b c";
+        msg.innerText = "<h1>h1제목</h1> &nbsp; &lt; &gt;   a  b c";
+        // innerHTML: tag는 tag로 인식한다
+        msg.innerHTML = "<h1>h1제목</h1> abc&nbsp&nbsp&nbsp;&lt;a&gt;   a  b c";
+
+        // 보안상 안됨
+        // msg.innerHTML = "<script>alert(1)</''+script>";
+
+        msg.innerHTML += "d";
+        msg.innerHTML = "<a href='javascript:alert(1);alert(2);'>";
+
+        // 카운트 올리기
+        setInterval(function () {
+            const count = document.getElementById("count");
+            let cnt = count.textContent;
+            // console.log(cnt, typeof cnt);
+            cnt = Number(cnt) + 1;
+            count.innerText = cnt;
+        }, 1000);
+
+        // 시계
+        setInterval(function () {
+            const clock = document.getElementById("clock");
+
+            const now = new Date();
+            const str = now.getMinutes() + "분" + now.getSeconds() + "초";
+            clock.innerText = str;
+        }, 250);
+
+        // DOM 생성
+
+        // createElement: DOM 요소 생성
+        let div = document.createElement("div") // <div></div>
+        console.log(div);
+        // <div id="hanbok"></div>
+        div.setAttribute("id", "hanbok");
+        console.log(div);
+        // <div id="hanbok">잘 어울려요</div>
+        div.textContent = "잘 어울려요";
+        console.log(div);
+        // <div id="hanbok" style="color:red;font-size:1.5em;">잘 어울려요</div>
+        div.setAttribute("style", "color:red;font-size:1.5em;");
+        console.log(div);
+
+        const log = document.querySelector("#log");
+        // log.innerHTML = div;
+
+        // append
+        // 마지막 자식 요소로 추가된다
+        // - DOM을 넣을 수 있다
+        // - 글씨도 넣을 수 있다
+        log.append(div);
+        log.append("<h1>abcd</h1>");
+        // 두 번 append 할 때 주의
+        // 다른 객체는 관계없이 두번 들어감
+        // 같은 객체일 경우 이전 것을 지우고 마지막 것만 들어감
+        log.append(div);
+
+        const div2 = document.createElement("p");
+        div2.innerText = "p태그";
+        // appendChild
+        // 마지막 자식 요소로 추가한다
+        // DOM만 넣을 수 있다(append와 차이점)
+        log.appendChild(div2);
+
+        const div3 = document.createElement("p");
+        div3.innerText = "div3 p태그";
+        // prepend
+        // 첫 자식 요소로 추가
+        log.prepend(div3);
+
+        // after, before
+        // 형제요소
+        const div4 = document.createElement("div");
+        div4.innerText = "div4";
+        log.before(div4);
+
+        const div5 = document.createElement("div");
+        div5.innerText = "div5";
+        log.after(div5);
+
+        /////////////////////////////////////////////////
+
+        const tbody = document.querySelector("#tbody");
+
+        const tr = document.createElement("tr");
+        tbody.append(tr);
+
+        const td = document.createElement("td");
+        td.innerText = "첫째칸";
+        tr.append(td);
+
+        // td.innerText = td_text;
+
+        // document.querySelector("#tbody").prepend(tr);
+
+        // document.querySelector("#tbody").innerHTML = `
+        //     <tr>
+        //         <td>${td1_text}</td>
+        //     </tr>
+        // `;
+
+        const rows = [
+            ["제목1", "작성자1"],
+            ["제목2", "작성자2"],
+            ["제목3", "작성자3"],
+            ["제목4", "작성자4"]
+        ]
+
+        const tbody2 = document.querySelector("#tbody2");
+
+        let html = `
+            <tr>
+                <td>${rows[0][0]}</td>
+                <td>${rows[0][1]}</td>
+            </tr>
+            `;
+
+        tbody2.innerHTML = html;
+
+        html = "";
+        for (let i = 0; i < rows.length; i++) {
+            html += `
+            <tr>
+                <td>${rows[i][0]}</td>
+                <td>${rows[i][1]}</td>
+            </tr>
+            `;
+        }
+        console.log(html);
+        tbody2.innerHTML = html;
+
+        tbody2.innerHTML = "";
+        for (let i = 0; i < rows.length; i++) {
+            html = `
+            <tr>
+                <td>${rows[i][0]}</td>
+                <td>${rows[i][1]}</td>
+            </tr>
+            `;
+            tbody2.innerHTML += html;
+        }
+
+        tbody2.innerHTML = "";
+        for (let i = 0; i < rows.length; i++) {
+            const tr1 = document.createElement("tr");
+            tr1.innerHTML = `
+                <td>${rows[i][0]}</td>
+                <td>${rows[i][1]}</td>
+            `;
+            tbody2.append(tr1);
+        }
+
+        // prepend
+        tbody2.innerHTML = "";
+        for (let i = 0; i < rows.length; i++) {
+            html = `
+            <tr>
+                <td>${rows[i][0]}</td>
+                <td>${rows[i][1]}</td>
+            </tr>
+            `;
+            tbody2.innerHTML = html + tbody2.innerHTML;
+        }
+
+        /////////////////////////////////////////////////
+
+        // const tbody2 = document.querySelector("#tbody2");
+
+        // const tr1 = document.createElement("tr");
+        // tbody2.append(tr1);
+        // const td1_1 = document.createElement("td");
+        // td1_1.innerText = "1-1";
+        // tr1.append(td1_1);
+        // const td1_2 = document.createElement("td");
+        // td1_2.innerText = "1-2";
+        // tr1.append(td1_2);
+
+        // const tr2 = document.createElement("tr");
+        // tbody2.append(tr2);
+        // const td2_1 = document.createElement("td");
+        // td2_1.innerText = "2-1";
+        // tr2.append(td2_1);
+        // const td2_2 = document.createElement("td");
+        // td2_2.innerText = "2-2";
+        // tr2.append(td2_2);
+
+        /////////////////////////////////////////////////
+
+        // script
+
+        // const script = document.createElement("script");
+        // script.innerHTML = "alert(1)";
+        // log.after(script);
+
+        /////////////////////////////////////////////////
+
+        // style
+
+        const clock = document.querySelector("#clock");
+
+        // CSS에서 -로 연결되는 프로퍼티 명은
+        // 카멜케이스(대문자로 시작하는 연결)로 변경해서 사용한다
+        // background-color -> backgroundColor
+        clock.style.color = "red";
+        clock.style.backgroundColor = "yellowgreen";
+        clock.style.fontSize = "2em";
+
+        console.log(clock.style.color);
+        console.log(clock.style.height);
+        clock.style.height = "50px";
+        console.log(clock.style.height);
+
+        let w = window.getComputedStyle(clock, null).getPropertyValue("width");
+
+        console.log("clock.style.width: ", clock.style.width);
+        console.log("w: ", w);
+
+        clock.style.border = "1px solid red";
+
+        // clock의 원래 너비보다 100px 줄어든 너비로 지정
+        let width_orig = w;
+
+        // #1 (parseFloat도 됨)
+        let result = (parseInt(width_orig) - 100) + "px";
+        console.log(result);
+
+        // #2
+        let w2 = Number(width_orig.split("px")[0]);
+        clock.style.width = (w2 - 100) + "px";
+        console.log(clock.style.width);
+
+        // 이건 안됨
+        // let w3 = (Number(width_orig) - 100) + "px";
+        // console.log(w3);
+
+        console.log("--------------------------");
+        // DOM 문제
+
+        // 문제1
+        // 다음 html의 컨텐츠를 출력하고
+        // 화면 글씨 마지막에 "~냥"을 붙여서 표시한다
+        // <div class="quiz q1">미래님 최고다</div>
+
+        let q1 = document.querySelector(".q1");
+        console.log(q1.innerText);
+        q1.innerText += "~냥";
+
+        // 문제2
+        // 다음 코드 중 클래스 q2거 들어가 있는 모든 태그의 개수를 구하세요
+        /*
+            <div class="quiz q2">퀴즈21</div>
+            <div class="quiz q2-1">퀴즈2-1</div>
+            <div class="quiz q2-2">퀴즈2-2</div>
+            <div class="quiz q2">퀴즈22</div>
+            <div class="quiz q2-1">퀴즈2-1</div>
+            <div class="quiz q2"></div>
+        */
+        const q2 = document.querySelectorAll(".q2");
+        const q2Length = q2.length;
+        console.log("q2 개수: ", q2Length);
+
+        // 문제3
+        // 위 코드에서 class q2를 가지는 태그의 글씨를 출력하시오
+
+        for (let i = 0; i < q2.length; i++) {
+            if (q2[i].textContent === "") {
+                q2[i].textContent = "비어있음👍";
+            }
+            console.log(q2[i].textContent);
+        }
+
+        // 문제4
+        // 위 코드에서 class q2를 가지는 태그 중
+        // 글씨가 없는 것은 "비어있음👍"으로 표시
+
+    </script>
+</body>
+
+</html>

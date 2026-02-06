@@ -123,6 +123,48 @@
 
 <body>
 
+    <table border="1">
+        <tbody id="member-list">
+
+        </tbody>
+    </table>
+
+    <script>
+        const members = ["홍길동:hong@naver.com", "임꺽정:lim@gmail.com", "장길산:jang@daum.net"];
+        const memList = document.querySelector("#member-list");
+
+        memList.innerHTML = "";
+
+        for (let i = 0; i < members.length; i++) {
+
+            // name과 email 분리
+            const memInfo = members[i].split(":");
+            const name = memInfo[0];
+            let email = memInfo[1];
+
+            // email 마스킹
+            const [idP, domainP] = email.split("@");
+            const preidP = idP.substr(0, 2);
+            const idCount = idP.length - preidP.length;
+            let idid = "";
+            for (let i = 1; i <= idCount; i++) {
+                idid += "*";
+            }
+            let idResult = preidP + idid;
+            email = idResult + "@" + domainP;
+
+            const tr = document.createElement("tr");
+
+            tr.innerHTML = `
+                <td style="color:blue">${name}</td>
+                <td>${email}</td>
+             `
+
+            memList.append(tr);
+        };
+
+    </script>
+
 </body>
 
 </html>
