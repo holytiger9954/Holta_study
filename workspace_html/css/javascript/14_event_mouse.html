@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 200vh;
+        }
+
+        #area {
+            margin-top: 50px;
+        }
+
+        #cursor {
+            position: absolute;
+        }
+
+        #police {
+            position: absolute;
+            display: none;
+        }
+
+        #drag {
+            border: 1px solid red;
+            width: 100px;
+            height: 100px;
+            position: absolute;
+        }
+    </style>
+    <script src="asset/js/14_event_mouse.js"></script>
+</head>
+
+<body>
+
+    <div id="area" style="width: 200px; height: 100px; border: 1px solid red;">
+        굉장히 엄청나서 ctrl + c로 퍼가고 싶은 글씨
+    </div>
+
+    <img id="drag" style="width: 64px; height: 64px;" src="https://mod-file.dn.nexoncdn.co.kr/profile/79/1708694258062.png">
+
+    <div id="log"></div>
+
+    <img id="cursor" style="width: 64px;" src="http://116.36.205.25:5173/uploads/1770608817346_d0289182-4c2d-4e95-8f0f-ec18d12d779e.png">
+
+    <img id="police" style="width: 64px;" src="https://img.freepik.com/free-vector/police-car_1308-35213.jpg?semt=ais_hybrid&w=740&q=80">
+</body>
+
+</html>

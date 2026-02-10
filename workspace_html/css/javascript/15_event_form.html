@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="asset/js/15_event_form.js"></script>
+</head>
+<body>
+    <div id="log"></div>
+
+    <form action="https://search.naver.com/search.naver" id="form">
+        검색 : <input type="text" id="id" name="query"><br>
+        사이트: <select id="site">
+            <option value="1">네이버</option>
+            <option value="2">구글</option>
+        </select>
+        <br>
+        <input type="submit" value="검색">
+    </form>
+
+    <div id="parent">
+        부모
+        <div id="child1">자식1</div>
+        <div id="child2">자식2</div>
+    </div>
+
+    <table id="board" border="1">
+        <tr>
+            <td>
+                <input type="checkbox" class="chk" value="1">
+            </td>
+            <td class="title">제목1</td>
+            <td>작성자1</td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" class="chk" value="2">
+            </td>
+            <td class="title">제목2</td>
+            <td>작성자2</td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" class="chk" value="3">
+            </td>
+            <td class="title">제목3</td>
+            <td>작성자3</td>
+        </tr>
+    </table>
+</body>
+</html>

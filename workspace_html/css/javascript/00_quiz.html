@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="asset/js/00_quiz.js"></script>
+</head>
+
+<body>
+    <div>
+        <h1>로그인</h1><br>
+        아이디 : <input type="text" id="id"><br>
+        비밀번호 : <input type="password" id="pw"><br>
+        <br>
+        <input type="button" id="login" value="로그인">
+        <br>
+    </div>
+    <div id="log1"></div><br>
+    <hr>
+
+    <div>
+        <h1>피자 주문</h1><br>
+        피자 종류 선택
+        <select id="select">
+            <option value="1">치즈피자</option>
+            <option value="2">불고기피자</option>
+            <option value="3">페퍼로니피자</option>
+            <option value="4">콤비네이션피자</option>
+        </select>
+        <br>
+        사이즈 선택
+        <label><input type="radio" name="size" value="18000" checked>small(18000)</label>
+        <label><input type="radio" name="size" value="20000">medium(20000)</label>
+        <label><input type="radio" name="size" value="22000">large(22000)</label>
+        <br>
+        도우 엣지 선택
+        <label><input type="radio" name="edge" value="0" checked>thin</label>
+        <label><input type="radio" name="edge" value="0">치즈</label>
+        <label><input type="radio" name="edge" value="0">고구마</label>
+        <label><input type="radio" name="edge" value="0">에그타르트</label>
+        <label><input type="radio" name="edge" value="0">소보로</label>
+        <br>
+        토핑
+
+        <label><input type="checkbox" class="topping" value="2000" checked>감자(2000)</label>
+        <label><input type="checkbox" class="topping" value="500">올리브(500)</label>
+        <label><input type="checkbox" class="topping" value="1000">페퍼로니(1000)</label>
+        <br>
+        <label><input type="checkbox" class="topping" value="2000">고구마(2000)</label>
+        <label><input type="checkbox" class="topping" value="5000">새우(5000)</label>
+        <label><input type="checkbox" class="topping" value="3000">베이컨(3000)</label>
+        <label><input type="checkbox" class="topping" value="500">파인애플(500)</label>
+        <br>
+        <label><input type="button" id="confirm" value="선택완료"></label>
+
+    </div>
+    <div id="log2"></div><br>
+    <hr>
+
+    <div>
+        <h1>주문과 배송</h1><br>
+        주문 정보<br>
+        이름 : <input type="text" id="orderName"><br>
+        주소 : <input type="text" id="orderAddr"><br>
+        <input type="checkbox" id="copy"> 주문 정보와 배송 정보가 같습니다<br>
+        배송 정보<br>
+        이름 : <input type="text" id="deliveryName"><br>
+        주소 : <input type="text" id="deliveryAddr"><br>
+    </div><br>
+    <hr>
+
+    <div>
+        <h1>쇼핑몰</h1><br>
+        <ul id="product">
+            <li class="item">인기상품순</li>
+            <li class="item">낮은가격순</li>
+            <li class="item">높은가격순</li>
+            <li class="item">신상품순</li>
+        </ul><br>
+    </div><br>
+    <hr>
+
+    <div>
+        <div class="thumbnails">
+            <img src="https://cdn.pixabay.com/photo/2016/07/09/12/16/apples-1506119_1280.jpg" class="thumb" width="100">
+            <img src="https://cdn.pixabay.com/photo/2015/01/27/18/32/bananas-614090_1280.jpg" class="thumb" width="100">
+            <img src="https://cdn.pixabay.com/photo/2022/02/25/08/13/blood-oranges-7033738_1280.jpg" class="thumb"
+                width="100">
+        </div>
+
+        <div>
+            <img id="mainImg" src="https://cdn.pixabay.com/photo/2016/07/09/12/16/apples-1506119_1280.jpg" width="400"
+                border="1">
+        </div>
+    </div>
+
+    <script>
+        // 문제1 
+        // - 로그인 화면에서(아이디, 비밀번호, 로그인버튼)
+        // - 로그인 버튼 클릭 시
+        // 1. 아이디를 입력해주세요
+        // 2. 비밀번호를 입력해주세요
+        // 3. (아이디와 비밀번호가 다 있다면 아무 글씨도 없게)
+
+        document.querySelector("#login").addEventListener("click", function () {
+            document.querySelector("#log1").innerHTML = ""
+            document.querySelector("#log1").style.color = "red";
+            if (document.querySelector("#id").value.length === 0) {
+                document.querySelector("#log1").innerHTML += "아이디 또는 전화번호를 입력해 주세요.<br>";
+                document.querySelector("#id").focus();
+            } else if (document.querySelector("#pw").value.length === 0) {
+                document.querySelector("#log1").innerHTML += "비밀번호를 입력해 주세요.<br>";
+                document.querySelector("#pw").focus();
+            } else {
+                document.querySelector("#log1").style.color = "green";
+                document.querySelector("#log1").innerHTML += "로그인 성공!<br>";
+            }
+        });
+
+        // 문제2
+        // 피자 주문
+        // 피자 종류 선택 select
+        //    치즈피자, 불고기피자, 페퍼로니피자, 콤비네이션피자
+        // 사이즈 선택 radio
+        //    small(18000), medium(20000), large(22000)
+        // 도우 엣지 선택 radio
+        //    thin(0), 치즈(0), 고구마(0), 에그타르트(0), 소보로(0)
+        // 토핑 checkbox
+        //    감자(2000), 올리브(500), 페퍼로니(1000),
+        //    고구마(2000), 새우(5000), 베이컨(3000), 파인애플(500)
+        // [확인] 버튼 클릭 시
+        // 문제 2-1 : 총액 출력
+        // 문제 2-2 : 선택 내역과 총액 출력
+
+        document.querySelector("#confirm").addEventListener("click", function () {
+            // 1. 피자 종류 추출
+            const select = document.querySelector("#select");
+            const pizzaName = select.options[select.selectedIndex].text;
+
+            // 사이즈 및 엣지 가격 추출
+            const sizePrice = Number(document.querySelector("input[name='size']:checked").value);
+            const edgePrice = Number(document.querySelector("input[name='edge']:checked").value);
+
+            // 엣지 이름 추출
+            const edgeName = document.querySelector("input[name='edge']:checked").parentNode.textContent.trim();
+
+            // 토핑 합산 및 목록 추출
+            let toppingTotal = 0;
+            let selectedToppings = [];
+
+            document.querySelectorAll(".topping:checked").forEach(function (item) {
+                // 가격 합산
+                toppingTotal += Number(item.value);
+
+                // 텍스트에서 이름만 추출 ("감자(2000)" -> "감자")
+                let rawText = item.nextSibling.textContent.trim();
+                let nameOnly = rawText.split('(')[0];
+                selectedToppings.push(nameOnly);
+            });
+
+            // 총액 계산
+            const totalPrice = sizePrice + edgePrice + toppingTotal;
+
+            // 결과 출력
+            const log2 = document.querySelector("#log2");
+
+            // 내역 정리
+            let receipt = `[선택 내역] <br>`;
+            receipt += `- 메뉴: ${pizzaName}<br>`;
+            receipt += `- 엣지: ${edgeName}<br>`;
+            receipt += `- 토핑: ${selectedToppings.length > 0 ? selectedToppings.join(", ") : "없음"}<br>`;
+            receipt += `<strong>총 결제 금액: ${totalPrice.toLocaleString()}원</strong>`;
+
+            log2.innerHTML = receipt;
+        });
+
+        // 문제3
+        // 주문과 배송
+        // 주문 정보 : 이름, 주소
+        // 배송 정보 : 이름, 주소
+        //      - 주문 정보와 배송 정보가 같습니다
+        // 체크하면 주문 정보가 배송 정보로 복사
+        // 체크 풀면 배송 정보 초기화
+
+        document.querySelector("#copy").addEventListener("change", function () {
+            // 주문 정보
+            const orderName = document.querySelector("#orderName");
+            const orderAddr = document.querySelector("#orderAddr");
+
+            // 배송 정보
+            const deliveryName = document.querySelector("#deliveryName");
+            const deliveryAddr = document.querySelector("#deliveryAddr");
+
+            // 체크 상태
+            if (this.checked) {
+                // 데이터 복사
+                deliveryName.value = orderName.value;
+                deliveryAddr.value = orderAddr.value;
+            } else {
+                // 초기화
+                deliveryName.value = "";
+                deliveryAddr.value = "";
+            }
+        });
+
+        // 문제4
+        // 인기상품순, 낮은가격순, 높은가격순, 신상품순 메뉴에서
+        // 클릭한 것만 굵은 글씨로 유지
+
+        const Items = document.querySelectorAll(".item");
+
+        Items.forEach(function (item) {
+            item.addEventListener("click", function () {
+
+                const isBold = (this.style.fontWeight === "bold");
+
+                Items.forEach(function (el) {
+                    el.style.fontWeight = "normal";
+                    el.style.color = "black";
+                });
+
+                if (!isBold) {
+                    this.style.fontWeight = "bold";
+                    this.style.color = "blue";
+                }
+            });
+        });
+
+        // 문제5
+        // 썸네일이 있는 쇼핑몰
+        // 썸네일에 마우스 올리면
+        // 썸네일의 이미지를 오른쪽에 크게 보여준다
+
+        const thumbs = document.querySelectorAll(".thumb");
+        const mainImg = document.querySelector("#mainImg");
+
+        thumbs.forEach(function (item) {
+
+            item.addEventListener("mouseover", function () {
+
+                const newSrc = this.src;
+
+                mainImg.src = newSrc;
+
+                thumbs.forEach(el => el.style.outline = "none");
+                this.style.outline = "3px solid red";
+            });
+        });
+    </script>
+</body>
+
+</html>

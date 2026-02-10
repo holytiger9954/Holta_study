@@ -10,6 +10,10 @@ function init() {
     const btn1 = document.querySelector("#btn1");
     console.log(2, "btn1: ", btn1);
 
+    const game = document.querySelector("#game");
+    game.style.left = "10px";
+    game.style.top = "300px";
+
     bind();
 }
 
@@ -85,7 +89,7 @@ function bind() {
         console.log(event);
         console.log(event.key);
         console.log(event.keyCode);
-        
+
         console.log(event.shiftKey);
         console.log(event.ctrlKey);
         console.log(event.altKey);
@@ -93,13 +97,82 @@ function bind() {
         // 엔터를 누르면
         // "엔터 빵!!" 출력하시오
 
-        if(event.keyCode == 13){
+        if (event.keyCode == 13) {
             console.log("엔터 빵!!");
             log.innerHTML += "<br>엔터 빵!!";
+
+            document.querySelector("#pw").focus(); // 해당 DOM에 focus 발생
         }
 
-        if(event.ctrlKey == true && event.keyCode == 67){
+        if (event.ctrlKey == true && event.keyCode == 67) {
             alert("복사하려고?");
         }
     });
+
+    document.querySelector("#pw").addEventListener("keyup", function (event) {
+        if (event.keyCode == 13) { // 엔터
+            document.querySelector("#login").click(); // DOM에 click 발생
+        }
+    });
+
+    const btn4 = document.querySelector("#btn4");
+    btn4.addEventListener("click", btn4click);
+
+    // removeEventListener
+    // 이벤트 제거
+    // 단, 익명함수는 불가능
+    btn4.removeEventListener("click", btn4click);
+
+    document.querySelector("body").addEventListener("keydown", function (event) {
+        console.log("body event.keyCode: ", event.keyCode);
+
+        const game = document.querySelector("#game");
+        console.log("game.style.left: ", game.style.left);
+        console.log("game.style.top: ", game.style.top);
+
+        if (event.keyCode == 39) { // 오른쪽
+            game.style.left = (parseInt(game.style.left) + 10) + "px";
+        } else if (event.keyCode == 37) { // 왼쪽
+            game.style.left = (parseInt(game.style.left) - 10) + "px";
+        } else if (event.keyCode == 38) { // 위쪽
+            game.style.top = (parseInt(game.style.top) - 10) + "px";
+        } else if (event.keyCode == 40) { // 아래쪽
+            game.style.top = (parseInt(game.style.top) + 10) + "px";
+        }
+    });
+
+    document.querySelector("#top").addEventListener("click", function (event) {
+        console.log("scrollTop: ", document.documentElement.scrollTop);
+        // document.documentElement.scrollTop = 0;
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+        // 계산 결과가 실시간으로 빠르게 반영되진 않는다
+        // let top = document.documentElement.scrollTop;
+        // while (top > 0) {
+        //     document.documentElement.scrollTop -= 10;
+        //     top = document.documentElement.scrollTop;
+        // }
+
+        // 시간에 따라서 settimeout 대량으로 만들어서
+        // 부드럽게 보이길 예상하는
+        // for (let i = document.documentElement.scrollTop; i > 0; i -= 10) {
+        //     let delay = 2000 - i;
+        //     setTimeout(() => {
+        //         document.documentElement.scrollTop = i;
+        //     }, delay);
+        // }
+    });
+
+    window.addEventListener("scroll", function () {
+        console.log("window.scrollY: ", window.scrollY);
+    });
+
+}
+
+function btn4click() {
+    const log = document.querySelector("#log");
+    log.innerHTML += "<br>버튼4 클릭";
 }
