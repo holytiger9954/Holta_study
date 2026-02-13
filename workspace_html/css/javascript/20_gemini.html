@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // AIzaSyDwI1RelTMs20O7wbFCWGa5YbyKKE2Cfns
+        // "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent"
+
+        window.addEventListener("load", function () {
+            gemini();
+        });
+
+        const data = {
+            "contents": []
+        };
+
+        function gemini() {
+            const ask = document.querySelector("#ask");
+            ask.addEventListener("click", function () {
+                const prompt = document.querySelector("#prompt");
+
+                const key = "AIzaSyDwI1RelTMs20O7wbFCWGa5YbyKKE2Cfns";
+                const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent";
+
+                const xhr = new XMLHttpRequest();
+                xhr.open("post", url);
+
+                xhr.setRequestHeader("x-goog-api-key", key);
+                xhr.setRequestHeader("Content-Type", "application/json");
+
+                const data = {
+
+                    "contents": [{
+                        "parts": [{
+                            "text": prompt.value
+                        }]
+                    }]
+                }
+
+                xhr.send(JSON.stringify(data));
+
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        const res = JSON.parse(xhr.responseText);
+
+                        // 1. text 꺼내기
+                        const geminiResponse = res.candidates[0].content.parts[0].text;
+
+                        // 2. 결과를 보여줄 div 선택
+                        const answerDiv = document.querySelector("#answer");
+
+                        // 3. 화면에 출력
+                        answerDiv.innerHTML = `<div style="padding:10px; background:#f4f4f4; border-radius:5px;">
+                                <strong>나:</strong> ${prompt.value}<br>
+                                <strong>Gemini:</strong> <br> ${geminiResponse}
+                                </div>`;
+
+                        console.log("답변 성공");
+                    } else {
+                        console.error("에러 발생:", xhr.status);
+                    }
+                }
+
+            });
+
+            const ask2 = document.querySelector("#ask2");
+            ask2.addEventListener("click", function () {
+                const prompt = document.querySelector("#prompt");
+
+                const key = "AIzaSyDwI1RelTMs20O7wbFCWGa5YbyKKE2Cfns";
+                const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent";
+
+                const xhr = new XMLHttpRequest();
+                xhr.open("post", url);
+
+                xhr.setRequestHeader("x-goog-api-key", key);
+                xhr.setRequestHeader("Content-Type", "application/json");
+
+                data.contents.push({
+                    "role": "user",
+                    "parts": [{
+                        "text": prompt.value
+                    }]
+                });
+
+                xhr.send(JSON.stringify(data));
+
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        const res = JSON.parse(xhr.responseText);
+                        const geminiResponse = res.candidates[0].content.parts[0].text;
+
+                        // 2. Gemini의 답변을 대화 기록(data.contents)에 추가 (그래야 다음 질문 때 기억함)
+                        data.contents.push({
+                            "role": "model",
+                            "parts": [{ "text": geminiResponse }]
+                        });
+
+                        // 3. 화면에 출력
+                        const answerDiv = document.querySelector("#answer");
+                        answerDiv.innerHTML += `<div style="padding:10px; background:#f4f4f4; border-radius:5px;">
+                                        <strong>나:</strong> ${prompt.value}<br>
+                                        <strong>Gemini:</strong> ${geminiResponse}
+                                    </div>`;
+
+                        prompt.value = ""; // 입력창 비워주기
+
+                        console.log("답변 성공");
+                    } else {
+                        console.error("실패:", xhr.responseText);
+                        // 실패했을 경우 마지막에 넣은 내 질문은 지워주기
+                        data.contents.pop();
+                    }
+                };
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <textarea id="prompt"></textarea><br>
+    <input type="button" id="ask" value="질문하기">
+    <input type="button" id="ask2" value="멀티턴">
+    <div id="answer"></div>
+</body>
+
+</html>

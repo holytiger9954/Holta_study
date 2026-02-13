@@ -8,7 +8,7 @@ function bind() {
         const xhr = new XMLHttpRequest();
 
         // 보낼 준비
-        // 방식: method, 전달인자: 주소
+        // 방식: method, 전달인자: 방식, 주소
         xhr.open("get", "https://jsonplaceholder.typicode.com/users");
 
         // 보내기
@@ -123,8 +123,14 @@ function bind() {
     const btn4 = document.querySelector("#btn4");
     btn4.addEventListener("click", function () {
 
+        const url = "https://jsonplaceholder.typicode.com/users";
+
+        const option = {
+            method: "get"
+        };
+
         // const xhr = new XMLHttpRequest();
-        // xhr.open("get", "https://jsonplaceholder.typicode.com/users");
+        // xhr.open(option.method, url);
         // xhr.send();
         // xhr.onload = function () {
         //     let response = xhr.responseText;
@@ -132,10 +138,6 @@ function bind() {
         //     console.log(xhr.responseText);
         // };
 
-        const url = "https://jsonplaceholder.typicode.com/users";
-        const option = {
-            method: "get"
-        };
 
         fetch(url, option).then(function (response) {
             return response.json();
@@ -162,6 +164,65 @@ function bind() {
         };
 
     });
+
+    const btn6 = document.querySelector('#btn6');
+    btn6.addEventListener('click', function () {
+        $.ajax({
+            url: 'https://jsonplaceholder.typicode.com/userss',
+            type: 'get',    // method
+            success: function (data) {
+                console.log('성공')
+                // 자동으로 json으로 바뀌어 온다
+                console.log(data);
+            },
+            error: function (error) {
+                console.log('실패');
+                console.log(error);
+            },
+            complete: function () {
+                console.log('무조건 실행');
+            }
+        });
+    });
+
+    const btn7 = document.querySelector('#btn7');
+    btn7.addEventListener('click', function () {
+        $.ajax({
+            url: 'https://jsonplaceholder.typicode.com/users',
+            type: 'get'
+        }).done(function (data) {
+            console.log('성공');
+            // 자동으로 json으로 바뀌어 온다
+            console.log(data);
+        }).fail(function (error) {
+            console.log('실패');
+            console.log(error);
+        }).always(function () {
+            console.log('무조건 실행');
+        });
+
+    });
+
+    btn4.addEventListener('click', async function () {
+
+        const url = 'https://jsonplaceholder.typicode.com/users';
+        const option = {
+            method: 'get'
+        }
+
+        // fetch(url, option)
+        //     .then(function (response) {
+        //         return response.json();
+        //     }).then(function (json) {
+        //         console.log(json);
+        //     }).catch(function (error) {
+        //         console.error(error);
+        //     });
+
+        let response = await fetch(url, option);
+        let json = await response.json();
+        console.log(json);
+    })
 
 }
 

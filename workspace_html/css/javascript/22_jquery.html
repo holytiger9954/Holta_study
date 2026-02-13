@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script>
+
+        // let $ = 20;
+
+        // jQuery 변수
+        // 1. $
+        // 2. jQuery
+
+        // 다 같은거
+        // window.addEventListener("load", function(){
+        //     console.log("hello");
+        // });
+
+        // window.onload = function() {
+        //     console.log("hello");
+        // }
+
+        // $(function() {
+        //     console.log("hello"); 
+        // });
+
+        // $(() => {
+        //     console.log("hello"); 
+        // });
+
+        // $(document).ready(function() {
+        //     console.log("hello"); 
+        // });
+
+        $(() => {
+            init();
+            bind();
+        })
+
+        function init() {
+
+            // querySelectorAll에 해당함
+            const list_h1 = $("h1")
+            console.log(list_h1);       // jQuery 배열 객체
+            console.log(list_h1[0]);    // 순수한(pure) javascript
+
+            console.log($("#human"));   // 없으면 0개 짜리 배열
+
+            // text(): innerText에 해당함
+            // $($("h1")[0]).text("하나만 변경");
+            $("h1").text("싹다 변경");
+            $("h1").text("<싹다> 변경 </싹다>");
+
+            // html(): innerHTML에 해당
+            // $("h1").html("<a href='#'> a태그 </a>");
+            $("h1").html("<a href='javascript:void(0)'> a태그 </a>");
+
+            console.log($("#parent"));
+            // $("#parent")[0].classList.add("c1");
+
+            // 클래스 추가
+            $("#parent").addClass("c1 c2");
+
+            // 클래스 제거
+            $("#parent").removeClass("c1");
+
+            // 클래스 toggle: 없으면 추가, 있으면 제거
+            $("#parent").toggleClass("c2");
+
+            // 클래스 포함 여부
+            console.log($("#parent").hasClass("c2"));
+
+            // attr()
+            // 전달인자가 하나면 읽기
+            // getAttribute
+            console.log($("#parent").attr("id"));
+
+            // setAttribute
+            // 전달인자가 두개면 속성 변경
+            $("#parent").attr("data-human", "최고에요");
+            $("#parent").attr("data-human", "덮어쓰기");
+
+            // data-"속성명" 에서 "속성명"으로 접근 가능하다
+            console.log($("#parent").data("human"));
+
+            // 개발자 도구에서 안보이는 값 관리할 때 사용도 가능하다
+            $("#parent").data("강사님", "질문이요");
+            console.log($("#parent").data("강사님"));
+
+            // removeAttribute
+            $("#parent").removeAttr("data-human");
+
+            // createElement
+            const child2 = $("<div class='child2'>자식2</div>");
+            console.log(child2);     // 배열
+            console.log(child2[0]);  // DOM
+
+            $("#parent").append(child2);
+            // $("#parent").append(child2[0]); // 둘 다 됨
+
+            $("#parent").prepend("<div class='child0'>자식0</div>");
+            $("#parent").after("<div>부모2</div>");
+            $("#parent").before("<div>부모0</div>");
+
+            // 내용 배우기
+            // $("#parent")[0].innerHTML = "";
+            // $("#parent").html("");
+            $("#parent").empty();
+            $("#parent").remove();
+
+            $("#id").css("backgroundColor", "yellowgreen");
+            console.log($("#id").css("backgroundColor"));
+
+            // 내가 주지도 않은 css 값을 읽을 수 있다
+            console.log($("#id").css("fontSize"));
+            console.log($("#id").css("width"));
+
+            // 너비 읽기
+            console.log($("#id").width());
+            // 너비 적용
+            $("#id").width(500)
+            // $("#id").width("50%");
+
+
+        }
+
+        function bind() {
+            // $("#btn1").click(function () {});
+            $("#btn1").on("click", function (event) {
+                console.log(this === event.currentTarget);
+
+                console.log($("#id").val());
+                $("#id").val("바꾸기");
+
+                $(".chk").prop("checked", true);
+
+                console.log($($(".chk")[0]).prop("checked"));
+                $($(".chk")[0]).prop("checked", false);
+                console.log($(".chk").eq(0).prop("checked"));
+            });
+
+            $(".btn").on("click", function () {
+                console.log("버튼?");
+                console.log(event.target);
+                console.log(event.currentTarget);
+                console.log(this);
+            });
+
+            // 개발자 도구 > 이벤트 리스너 구경
+            // $(".btn").on("click", function () {
+            //     console.log("버튼!");
+            // });
+
+            $(".btn").off("click").on("click", function (event) {
+                console.log("버튼!");
+            });
+
+            $(".btn").on("click.ajax", function (event) {
+                console.log("ajax!");
+            });
+            // $(".btn").off("click");
+            // 이벤트명."식별자"로 필요한 이벤트만 지울 수 있다
+            $(".btn").off("click.ajax");
+
+            // 부모로 올라가기
+            // $("child")[o].parrentNode;
+            console.log($(".child22").parent());
+
+            // 자식 찾기
+            // querySelector("#parent2").querySelector...
+            console.log($(".child22").parent().find(".child22"));
+            console.log($("#parent2").find(".child22"));
+            
+            $(".child22").on("click", function (event) {
+                // event.stopPropagation()
+
+                console.log("자식22");
+
+                return false;
+            });
+            $("#parent2").on("click", function () {
+                console.log("부모2");
+
+                // $(this).find(".child22").hide(); // display: none
+                // $(this).find(".child22").show();
+                // $(this).find(".child22").fadeToggle();
+                // $(this).find(".child22").slideToggle();
+
+                $(this).find('.child22').animate({
+                    width: '100px',
+                    height: '+=10px'
+                });
+            });
+
+        }
+
+    </script>
+</head>
+
+<body>
+    <h1>첫번째</h1>
+    <h1>두번째</h1>
+    <h1>세번째</h1>
+
+    <div id="parent">
+        부모
+        <div class="child">자식</div>
+    </div>
+
+    <input type="text" id="id"><br>
+
+    <input type="button" id="btn1" value="버튼1"><br> 
+    
+    <input type="checkbox" class="chk" value="1">체크1
+    <input type="checkbox" class="chk" value="2">체크2
+    <hr>
+    
+    <input type="button" class="btn" value="버튼2"> 
+    <input type="button" class="btn" value="버튼3"> 
+    <input type="button" class="btn" value="버튼4"><br>
+
+    <div id="parent2">
+        부모2
+        <div class="child22" style="border: 1px solid red; height: 100px; background: yellowgreen;">자식22</div>
+    </div>
+</body>
+
+</html>
