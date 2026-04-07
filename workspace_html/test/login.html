@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 - 나만의 스팟 지도</title>
+    <style>
+        /* 기본 스타일 초기화 */
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f5f6f7;
+        }
+
+        /* 중앙 정렬을 위한 Flexbox [새로 배울 내용 ⚠️] */
+        .auth-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 20px;
+        }
+
+        .auth-box {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+
+        h2 { text-align: center; color: #333; margin-bottom: 25px; }
+
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; margin-bottom: 5px; font-size: 14px; color: #666; }
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box; /* 패딩이 너비에 포함되게 함 */
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #ffde00; /* 카카오 노란색 느낌 */
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .toggle-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+        }
+
+        .toggle-text span {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        /* 회원가입 폼은 처음에 숨김 */
+        #signup-form { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="auth-container">
+    <div class="auth-box">
+        <div id="login-form">
+            <h2>로그인 📍</h2>
+            <form onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <label>아이디</label>
+                    <input type="text" id="login-id" required>
+                </div>
+                <div class="input-group">
+                    <label>비밀번호</label>
+                    <input type="password" id="login-pw" required>
+                </div>
+                <button type="submit" class="auth-btn">로그인</button>
+            </form>
+            <p class="toggle-text">계정이 없으신가요? <span onclick="toggleForm('signup')">회원가입</span></p>
+        </div>
+
+        <div id="signup-form">
+            <h2>회원가입 ✨</h2>
+            <form onsubmit="handleSignup(event)">
+                <div class="input-group">
+                    <label>아이디</label>
+                    <input type="text" id="signup-id" required>
+                </div>
+                <div class="input-group">
+                    <label>이름</label>
+                    <input type="text" id="signup-name" required>
+                </div>
+                <div class="input-group">
+                    <label>비밀번호</label>
+                    <input type="password" id="signup-pw" required>
+                </div>
+                <button type="submit" class="auth-btn">가입하기</button>
+            </form>
+            <p class="toggle-text">이미 계정이 있나요? <span onclick="toggleForm('login')">로그인</span></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 1. 폼 전환 함수
+    function toggleForm(type) {
+        const login = document.getElementById('login-form');
+        const signup = document.getElementById('signup-form');
+
+        if (type === 'signup') {
+            login.style.display = 'none';
+            signup.style.display = 'block';
+        } else {
+            login.style.display = 'block';
+            signup.style.display = 'none';
+        }
+    }
+
+    // 2. 로그인 처리 [새로 배울 내용 ⚠️]
+    function handleLogin(event) {
+        event.preventDefault(); // 폼 제출 시 페이지 새로고침 방지
+        const id = document.getElementById('login-id').value;
+        const pw = document.getElementById('login-pw').value;
+
+        // 테스트용 계정 (나중에는 DB와 대조)
+        if (id === "admin" && pw === "1234") {
+            alert("로그인 성공! 메인 지도로 이동합니다.");
+            // 로그인 상태 저장 (LocalStorage 활용)
+            localStorage.setItem('isLoggedIn', 'true');
+            window.location.href = "test.html"; // 메인 페이지로 이동
+        } else {
+            alert("아이디 또는 비밀번호가 틀렸습니다.");
+        }
+    }
+
+    // 3. 회원가입 처리
+    function handleSignup(event) {
+        event.preventDefault();
+        alert("회원가입이 완료되었습니다! 로그인해 주세요.");
+        toggleForm('login');
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+\${ 10 } : ${ 10 } : [${ 10 }]<br>
+\${ null } : [${ null }]
+	: null이면 아무것도 안나옴, 예외 발생시키지 않음<br>
+\${ 10 + 5 } : ${ 10 + 5}
+	: 간단한 연산이 가능<br>
+\${"10" + 5 } : ${ "10" + 5 }
+	: EL은 계산할 때 문자를 숫자로 바꾼다<br>
+<%-- \${"a" + 5 } : ${ "a" + 5 } --%>
+<%-- \${"a" + "b" } : ${ "a" + "b" } --%>
+\${ "a" } : ${ "a" }<br>
+\${ "a" += 1 } : ${ "a" += 1 }<br>
+<% 
+	String a = "a";
+	a = a + 1;
+%>
+\${ 10 % 4 } : ${ 10 % 4 }<br>
+\${ 10 mod 4 } : ${ 10 mod 4 }<br>
+
+\${ 10 / 4 } : ${ 10 / 4 }<br>
+\${ 10 div 4 } : ${ 10 div 4 }<br>
+
+\${ 10 == 4 } : ${ 10 == 4 }<br>
+\${ 10 eq 4 } : ${ 10 eq 4 }<br>
+
+\${ "a" eq "a" } : ${ "a" eq "a" }<br>
+
+\${ 10 != 4 } : ${ 10 != 4 }<br>
+\${ 10 ne 4 } : ${ 10 ne 4 }<br>
+
+\${ !("a" eq "a") } : ${ !("a" eq "a") }<br>
+\${ not("a" eq "a") } : ${ not("a" eq "a") }<br>
+
+\${ 10 > 4 } : ${ 10 > 4 }<br>
+\${ 10 gt 4 } : ${ 10 gt 4 } : greater then<br>
+
+\${ 10 < 4 } : ${ 10 < 4 }<br>
+\${ 10 lt 4 } : ${ 10 lt 4 } : less then 또는 little then<br>
+
+\${ 10 >= 4 } : ${ 10 >= 4 }<br>
+\${ 10 ge 4 } : ${ 10 ge 4 } : greater or equal<br>
+
+\${ 10 <= 4 } : ${ 10 <= 4 }<br>
+\${ 10 le 4 } : ${ 10 le 4 } : less(little) or equal<br>
+
+\${ (10 <= 4) eq "false" } : ${ (10 <= 4) eq "false" } : 결과는 글씨다<br>
+
+\${ (100 > 3) && (7 != 3) } : ${ (100 > 3) && (7 != 3) }<br>
+\${ (100 > 3) and (7 != 3) } : ${ (100 > 3) and (7 != 3) }<br>
+
+\${ (100 > 3) || (7 != 3) } : ${ (100 > 3) || (7 != 3) }<br>
+\${ (100 > 3) or (7 != 3) } : ${ (100 > 3) or (7 != 3) }<br>
+
+\${ empty "글씨" } : ${ empty "글씨" }<br> 
+\${ empty "" } : ${ empty "" }<br> 
+\${ empty null } : ${ empty null }<br>
+내용이 <strong>없으면</strong> true<br> 
+
+request.getParameter("a") : <%= request.getParameter("a") %><br>
+\${ param.a } : ${ param.a}<br>
+\${ param.b } : ${ param.b}<br>
+
+\${ paramValues.b } : ${ paramValues.b }<br>
+\${ paramValues.b[0] } : ${ paramValues.b[0] }<br>
+\${ paramValues.b[1] } : ${ paramValues.b[1] }<br>
+\${ paramValues.b[100] } : ${ paramValues.b[100] } : 예외 발생하지 않음<br>
+
+request.getAttribute("num") : <%= request.getAttribute("num") %><br>
+\${ num } : ${ num }<br>
+\${ num2 } : ${ num2 }<br>
+
+\${ list } : ${ list }<br>
+\${ list[1] } : ${ list[1] }<br>
+
+\${ arr } : ${ arr }<br>
+\${ arr[1] } : ${ arr[1] }<br>
+
+\${ map } : ${ map }<br>
+\${ map["점심"] } : ${ map["점심"] }<br>
+\${ map.점심 } : ${ map.점심 }<br>
+
+\${ todoDTO } : ${ todoDTO }<br>
+\${ todoDTO.content } : ${ todoDTO.content }<br>
+
+<script>
+	const count = 3;
+	let sum = 50;
+	console.log(`count: \${count}, sum: \${sum}`);
+</script>
+</body>
+</html>

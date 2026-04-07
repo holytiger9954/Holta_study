@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <style>
+        body {
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            padding-top: 50px;
+            font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
+            margin: 0;
+            height: 100vh;
+        }
+
+        /* 1. 전체 컨테이너 스타일 */
+        #todo {
+            width: 450px;
+            min-height: 300px;
+            max-height: 80vh; /* 화면 밖으로 넘어가지 않도록 최대 높이 설정 */
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 2. 제목 스타일 */
+        h1 {
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+            margin: 0 0 20px 0;
+        }
+
+        /* 3. 입력창 & 추가 버튼 영역 (Flexbox로 나란히 배치) */
+        .input-group {
+            display: flex;
+            gap: 10px; /* 요소 사이의 간격 */
+            margin-bottom: 20px;
+        }
+
+        #inputTodo {
+            flex-grow: 1; /* 남은 공간을 모두 차지하도록 설정 */
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        #inputTodo:focus {
+            border-color: #4A90E2;
+        }
+
+        #addTodoList {
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: #4A90E2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        #addTodoList:hover {
+            background-color: #357ABD;
+        }
+
+        /* 4. 제어부 (전체선택, 선택삭제) 영역 */
+        .control-panel {
+            display: flex;
+            justify-content: space-between; /* 양쪽 끝으로 밀어내기 */
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
+        }
+
+        .select-all-label {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #555;
+            cursor: pointer;
+        }
+
+        #selectAll {
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        #removeSelect {
+            padding: 8px 15px;
+            background-color: #fff;
+            color: #ff4d4d;
+            border: 1px solid #ff4d4d;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        #removeSelect:hover {
+            background-color: #ff4d4d;
+            color: white;
+        }
+
+        /* 5. 리스트 영역 */
+        #todoList {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        /* 스크롤바 디자인 */
+        #todoList::-webkit-scrollbar {
+            width: 6px;
+        }
+        #todoList::-webkit-scrollbar-thumb {
+            background-color: #ddd;
+            border-radius: 3px;
+        }
+
+        /* 6. 개별 할 일 (Row) 스타일 */
+        .todo-row {
+            display: flex;
+            align-items: center;
+            padding: 12px 10px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s;
+        }
+
+        .todo-row:hover {
+            background-color: #f0f8ff;
+        }
+
+        .todo-row label {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .todoIndex {
+            width: 18px;
+            height: 18px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        .removeIndex {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        .removeIndex:hover {
+            background-color: #cc0000;
+        }
+
+        /* 7. 체크되었을 때 적용할 스타일 */
+        .completed .todo-text {
+            text-decoration: line-through;
+            color: #bbb;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="todo">
+        <h1>To-Do List</h1>
+        
+        <div class="input-group">
+            <input type="text" id="inputTodo" placeholder="할 일을 입력하세요">
+            <input type="button" id="addTodoList" value="추가">
+        </div>
+
+        <div class="control-panel">
+            <label class="select-all-label">
+                <input type="checkbox" id="selectAll"> 전체 선택
+            </label>
+            <input type="button" id="removeSelect" value="선택 삭제">
+        </div>
+
+        <div id="todoList">
+            </div>
+    </div>
+
+    <script>
+        // DOM 요소 선택
+        const inputTodo = document.querySelector("#inputTodo");
+        const addTodoList = document.querySelector("#addTodoList");
+        const todoList = document.querySelector("#todoList");
+        const selectAll = document.querySelector("#selectAll");
+        const removeSelect = document.querySelector("#removeSelect");
+
+        // 1. 추가 버튼 클릭
+        addTodoList.addEventListener("click", function () {
+            const newValue = inputTodo.value.trim();
+
+            if (newValue === "") {
+                alert("할 일을 입력해주세요");
+                return;
+            }
+
+            // 중복 검사 로직 유지
+            const items = document.querySelectorAll(".todo-text");
+            for (let item of items) {
+                if (item.textContent.trim() === newValue) {
+                    alert("이미 등록된 할 일입니다");
+                    inputTodo.value = "";
+                    return;
+                }
+            }
+
+            const div = document.createElement("div");
+            div.className = "todo-row";
+
+            div.innerHTML = `
+                <label>
+                    <input type="checkbox" class="todoIndex">
+                    <span class="todo-text">${newValue}</span>
+                </label>
+                <input type="button" class="removeIndex" value="삭제">
+            `;
+
+            todoList.appendChild(div);
+            inputTodo.value = "";
+            selectAll.checked = false;
+            inputTodo.focus();
+        });
+
+        // 2. 엔터키 입력 시 추가
+        inputTodo.addEventListener("keydown", function (e) {
+            if (e.key === "Enter") {
+                addTodoList.click();
+            }
+        });
+
+        // 3. 개별 삭제 (이벤트 위임)
+        todoList.addEventListener("click", function (e) {
+            if (e.target.classList.contains("removeIndex")) {
+                const targetRow = e.target.parentNode;
+                targetRow.remove();
+                syncSelectAll();
+            }
+        });
+
+        // 4. 전체 선택/해제
+        selectAll.addEventListener("change", function () {
+            const checkboxes = document.querySelectorAll(".todoIndex");
+            checkboxes.forEach(cb => {
+                cb.checked = this.checked;
+            });
+            checkedDesign();
+        });
+
+        // 5. 개별 체크 상태 변경 시 작동 (이벤트 위임)
+        todoList.addEventListener("change", function (e) {
+            if (e.target.classList.contains("todoIndex")) {
+                syncSelectAll();
+                checkedDesign();
+            }
+        });
+
+        // 6. 선택 삭제
+        removeSelect.addEventListener("click", function () {
+            const checkedItems = document.querySelectorAll(".todoIndex:checked");
+            if (checkedItems.length === 0) {
+                alert("삭제할 항목을 선택해주세요");
+                return;
+            }
+            checkedItems.forEach(cb => {
+                cb.closest('.todo-row').remove(); 
+            });
+            syncSelectAll();
+        });
+
+        // 체크박스 상태 동기화 함수
+        function syncSelectAll() {
+            const total = document.querySelectorAll(".todoIndex").length;
+            const checked = document.querySelectorAll(".todoIndex:checked").length;
+            selectAll.checked = (total > 0 && total === checked);
+        }
+
+        // 취소선 디자인 적용 함수
+        function checkedDesign() {
+            const checkboxes = document.querySelectorAll(".todoIndex");
+            checkboxes.forEach(cb => {
+                // checkbox의 부모인 label 태그에 클래스를 주기
+                const label = cb.parentNode; 
+                if (cb.checked) {
+                    label.classList.add("completed");
+                } else {
+                    label.classList.remove("completed");
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

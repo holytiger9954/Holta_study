@@ -1,0 +1,56 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="com.example.mes.model.User" %>
+<%
+    User loginUser = (User) session.getAttribute("loginUser");
+    String currentUri = request.getRequestURI();
+    String contextPath = request.getContextPath();
+%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee MES Mockup</title>
+    <link rel="stylesheet" href="<%= contextPath %>/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="app-shell">
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-badge">☕</div>
+            <div>
+                <strong>Coffee MES</strong>
+                <p>원두 기반 제조 실행 시스템</p>
+            </div>
+        </div>
+        <nav class="nav-menu">
+            <a href="<%= contextPath %>/<%= "ADMIN".equals(loginUser.getRole()) ? "admin/dashboard" : "worker/dashboard" %>" class="nav-link <%= currentUri.contains("dashboard") ? "active" : "" %>">대시보드</a>
+            <a href="<%= contextPath %>/base-info" class="nav-link <%= currentUri.endsWith("/base-info") ? "active" : "" %>">기준정보</a>
+            <a href="<%= contextPath %>/materials" class="nav-link <%= currentUri.endsWith("/materials") ? "active" : "" %>">자재관리</a>
+            <a href="<%= contextPath %>/work-orders" class="nav-link <%= currentUri.endsWith("/work-orders") ? "active" : "" %>">작업관리</a>
+            <a href="<%= contextPath %>/production" class="nav-link <%= currentUri.endsWith("/production") ? "active" : "" %>">생산관리</a>
+            <a href="<%= contextPath %>/reports" class="nav-link <%= currentUri.endsWith("/reports") ? "active" : "" %>">생산리포팅</a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-badge">
+                <span class="dot"></span>
+                <div>
+                    <strong><%= loginUser.getName() %></strong>
+                    <p><%= loginUser.getRole() %></p>
+                </div>
+            </div>
+            <a class="logout-btn" href="<%= contextPath %>/logout">로그아웃</a>
+        </div>
+    </aside>
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <h1><%= request.getAttribute("pageTitle") == null ? "Coffee MES" : request.getAttribute("pageTitle") %></h1>
+                <p class="topbar-sub">원두 입고부터 생산, 검사, 출하 전 적재까지 한 흐름으로 관리합니다.</p>
+            </div>
+            <div class="topbar-status">
+                <div class="chip">Lot 추적 가능</div>
+                <div class="chip accent">Oracle / Tomcat 9</div>
+            </div>
+        </header>

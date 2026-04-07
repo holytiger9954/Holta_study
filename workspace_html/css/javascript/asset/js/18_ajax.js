@@ -222,7 +222,7 @@ function bind() {
         let response = await fetch(url, option);
         let json = await response.json();
         console.log(json);
-    })
+    });
 
 }
 

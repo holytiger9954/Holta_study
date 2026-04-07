@@ -1391,7 +1391,7 @@ WHERE deptno = 10;
 
 
 
-// test
+--test
 SELECT 
     RPAD(SUBSTR(empno, 1, 2), 4, '*') AS empno, 
     ename
@@ -1402,7 +1402,42 @@ SELECT e.empno, e.ename, d.dname, d.loc
 FROM emp e
 	LEFT OUTER JOIN dept d USING(deptno)
 ORDER BY dname DESC; 
-	
+
+-----------------------------------------------
+
+DROP TABLE todo;
+
+CREATE TABLE todo (
+	todo_id NUMBER PRIMARY KEY,
+	duedate Date,
+	done NUMBER,
+	content varchar2(4000),
+	ctime date
+);
+
+CREATE SEQUENCE seq_todo;
+
+INSERT INTO todo (todo_id, duedate, done, content, ctime)
+VALUES (seq_todo.nextval, NULL, 0, '쇼핑', sysdate);
+
+SELECT * FROM todo;
+--WHERE todo_id = 21;
+
+SELECT * FROM emp
+WHERE ename = 'SMITH' AND empno = 7369;
+
+SELECT * FROM (
+	SELECT rownum rnum, e.* FROM (
+		SELECT emp.* FROM emp
+		ORDER BY hiredate
+	) e
+)
+WHERE rnum BETWEEN 3 AND 7;
+
+SELECT count(*) FROM emp;
+
+
+COMMIT;
 
 
 

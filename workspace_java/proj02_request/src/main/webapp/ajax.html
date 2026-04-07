@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ajax</title>
+</head>
+<body>
+
+<button type="button" onclick="send()">요청 보내기</button>
+<div id="result"></div>
+
+<script>
+	function send() {
+		fetch("req")
+			.then(response => response.json())
+			.then(data => {
+				console.log(data);
+				document.getElementById("result").innerHTML = "key 값: " + data.key;
+			})
+			.catch(error => {
+				console.log("에러:", error);
+			});
+	}
+</script>
+
+</body>
+</html>
