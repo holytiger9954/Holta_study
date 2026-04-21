@@ -23,19 +23,17 @@
     <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
 
     <!-- Uncomment this to disable session persistence across Tomcat restarts -->
-
     <Manager pathname="" />
-
-        <Resource
+    
+    <Resource
         name="jdbc/oracle"
         auth="container"
         type="javax.sql.DataSource"
         driverClassName="oracle.jdbc.driver.OracleDriver"
         url="jdbc:oracle:thin:@125.181.132.133:51521:xe"
-        username="scott1_7"
-        password="tiger"
+        username="beginagain"
+        password="rlafud"
         maxTotal="50"
-        maxWaitMillis="-1"
-  		/>
-    
+         maxWaitMillis="-1"
+    />
 </Context>
