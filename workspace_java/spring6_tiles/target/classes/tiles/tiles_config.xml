@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+	<definition name="baseLayout" template="/WEB-INF/views/layout/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
+		<put-attribute name="side" value="/WEB-INF/views/common/side.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
+		<put-attribute name="title" value="휴먼 웹툰" />
+	</definition>
+	
+	<definition name="baseLayout2" template="/WEB-INF/views/layout/headless_layout.jsp">
+	</definition>
+	
+	<definition name="class3" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/content/격기3반.jsp" />
+	</definition>
+	
+	<definition name="necro" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/content/네크로멘서.jsp" />
+	</definition>
+	
+	<definition name="*.tiles" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/content/{1}.jsp" />
+		<put-attribute name="title" value="휴먼 웹툰 - {1}" />
+	</definition>
+	
+	<definition name="*/*.tiles" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/content/{1}/{2}.jsp" />
+	</definition>
+	
+	<definition name="*/*/*.tiles" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/content/{1}/{2}/{3}.jsp" />
+	</definition>
+	
+	<definition name="login" extends="baseLayout2">
+		<put-attribute name="content" value="/WEB-INF/views/content/login.jsp" />
+	</definition>
+	
+</tiles-definitions>
+
+
+
+
+
+
